@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormGroup } from '@angular/forms';
 
 interface ActionButton {
   color?: 'primary'|'warn'|'accent';
@@ -21,13 +22,26 @@ export interface DataInterface {
 })
 export class DialogEditElementComponent implements OnInit {
 
+  loading: boolean;
+  error: Error;
+  form: FormGroup = new FormGroup({});
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DataInterface, public dialogRef: MatDialogRef<DialogEditElementComponent>) { }
 
   ngOnInit() {
   }
 
-  handle(button: ActionButton) {
-    return button.handle(this);
+  async handle(button: ActionButton) {
+    this.loading = true;
+    this.error = undefined;
+
+    try {
+      await button.handle(this);
+    } catch (err) {
+      this.error = err;
+    }
+
+    this.loading = false;
   }
 
 }
