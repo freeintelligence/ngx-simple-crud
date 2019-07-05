@@ -13,12 +13,14 @@ import {
   MatIconModule,
   MatTooltipModule,
   MatProgressSpinnerModule,
+  MatDialogModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DialogEditElementComponent } from './dialog-edit-element/dialog-edit-element.component';
 
 @NgModule({
-  declarations: [ResourceListComponent],
+  declarations: [ResourceListComponent, DialogEditElementComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,7 +38,9 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
   ],
-  exports: [ResourceListComponent]
+  exports: [ResourceListComponent],
+  entryComponents: [DialogEditElementComponent],
 })
 export class NgxSimpleCrudModule { }

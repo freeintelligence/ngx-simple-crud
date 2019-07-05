@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils } from 'ngx-simple-crud';
-import { Paginator } from 'ngx-simple-crud';
+import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils, DialogEditElementComponent, Paginator, DataInterface } from 'ngx-simple-crud';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-list',
@@ -28,18 +28,21 @@ export class ListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'actions' ];
 
-  buttons: ActionButton[] = [ { icon: 'edit', color: 'primary', toolTip: 'Editar', handle: () => this.edit() } ];
+  buttons: ActionButton[] = [ {
+    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element)
+  }, {
+    text: 'Prueba', handle: (element: any) => null,
+  } ];
 
   filter = (options: FilterEvent) => this.getUsers(options);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
   async getUsers(options: FilterEvent): Promise<Paginator> {
-    await this.sleep(1000);
-
+    // await this.sleep(1000);
     const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
     const paginator = new Paginator();
 
@@ -49,8 +52,18 @@ export class ListComponent implements OnInit {
     return paginator;
   }
 
-  async edit() {
-
+  async edit(user: any) {
+    this.dialog.open(DialogEditElementComponent, {
+      width: '512px',
+      data: {
+        title: 'Modificar usuario',
+        element: user,
+        buttons: [
+          { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
+          { text: 'Guardar', color: 'primary', handle: (dialog) => dialog.dialogRef.close() },
+        ]
+      } as DataInterface
+    });
   }
 
   async sleep(ms: number = 2000) {

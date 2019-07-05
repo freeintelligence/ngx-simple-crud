@@ -27,9 +27,10 @@ export interface ColumnInfo {
 
 export interface ActionButton {
   color?: 'primary'|'warn'|'accent';
-  toolTip: string;
-  icon: string;
-  handle?: (element: any) => void;
+  toolTip?: string;
+  icon?: string;
+  text?: string;
+  handle: (element: any) => any;
 }
 
 @Component({
