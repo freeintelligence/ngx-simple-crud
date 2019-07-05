@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils, DialogEditElementComponent, Paginator, DataInterface } from 'ngx-simple-crud';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -58,6 +59,31 @@ export class ListComponent implements OnInit {
       data: {
         title: 'Modificar usuario',
         element: user,
+        controls: [ {
+          label: 'Primer nombre',
+          key: 'first_name',
+          type: 'input',
+          subtype: 'string',
+          validators: [ Validators.required ]
+        }, {
+          label: 'Segundo nombre',
+          key: 'second_name',
+          type: 'input',
+          subtype: 'string',
+          validators: [ Validators.required ],
+        }, {
+          label: 'Correo electrónico',
+          key: 'email',
+          type: 'input',
+          subtype: 'email',
+          validators: [ Validators.required, Validators.email ],
+        }, {
+          label: 'Estado',
+          key: 'status',
+          type: 'select',
+          options: [ { value: undefined, description: 'Todos' }, { value: 0, description: 'Desactivo' }, { value: 1, description: 'Activo' } ],
+          validators: [],
+        } ],
         buttons: [
           { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
           { text: 'Guardar', color: 'primary', handle: (dialog) => dialog.dialogRef.close() },
