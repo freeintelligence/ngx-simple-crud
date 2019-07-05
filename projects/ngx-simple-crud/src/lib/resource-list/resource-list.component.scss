@@ -1,0 +1,27 @@
+.container {
+  margin:12px 32px;
+  position:relative;
+  box-sizing:border-box;
+
+  .filters {
+    float:right;
+
+    * {
+      display:inline-block;
+    }
+    mat-form-field {
+      margin:0 8px;
+      position:relative;
+    }
+
+    .mat-datepicker-toggle-suffix {
+      position:absolute;
+      right:0;
+      bottom:0;
+    }
+  }
+
+  table {
+    width:100%;
+  }
+}

@@ -1,1 +1,65 @@
-<p>resource-list works!</p>
+<div class="container">
+  <!--<app-absolute-spinner *ngIf="loading"></app-absolute-spinner>-->
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ headerTitle }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="filtersFormGroup" class="filters" (submit)="search()" autocomplete="off">
+        <mat-form-field *ngFor="let field of filters" [style.width]="field.width">
+
+          <mat-select *ngIf="field.type === 'select'" [placeholder]="field.placeholder" [formControlName]="field.name" [style.width]="field.width">
+            <mat-option *ngFor="let option of field.options" [value]="option.value">{{ option.description }}</mat-option>
+          </mat-select>
+
+          <input *ngIf="field.type === 'input'" matInput [type]="field.subtype" [placeholder]="field.placeholder" [formControlName]="field.name" [style.width]="field.width">
+
+          <ng-container *ngIf="field.type === 'date'">
+            <input matInput #date_input [formControlName]="field.name" [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field.placeholder">
+            <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
+            <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
+          </ng-container>
+
+        </mat-form-field>
+
+        <button mat-flat-button color="primary">Buscar</button>
+      </form>
+
+      <table mat-table [dataSource]="dataSource?.data">
+
+        <ng-container *ngFor="let column of infoColumns" [matColumnDef]="column.key">
+          <th mat-header-cell *matHeaderCellDef> {{ column.title }} </th>
+          <td mat-cell *matCellDef="let element"> {{ print(column, element) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngFor="let button of buttons" mat-icon-button [color]="button.color" [matTooltip]="button.toolTip" (click)="handle(element, button)">
+              <mat-icon>{{ button.icon }}</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div *ngIf="!loading && error" class="auto-center mini-margin-vertically">
+        <mat-chip-list><mat-chip class="auto-center-item" color="warn" selected>Ocurrió un error al obtener resultados, intenta nuevamente!</mat-chip></mat-chip-list>
+        <div class="mini-margin-vertically-16"></div>
+        <button mat-button type="button" color="primary" (click)="search()">Reintentar</button>
+      </div>
+
+      <div *ngIf="!loading && !error && !dataSource?.data?.length" class="auto-center mini-margin-vertically">
+        <mat-chip-list><mat-chip class="auto-center-item" selected>No hay resultados disponibles!</mat-chip></mat-chip-list>
+        <div class="mini-margin-vertically-16"></div>
+        <button mat-button type="button" color="primary" (click)="search()">Reintentar</button>
+      </div>
+
+      <mat-paginator #paginator [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataSource?.total" [pageSize]="pageSize" (page)="search($event.pageIndex + 1)"></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>
