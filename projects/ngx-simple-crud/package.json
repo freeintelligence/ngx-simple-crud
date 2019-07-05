@@ -1,8 +1,30 @@
 {
   "name": "ngx-simple-crud",
-  "version": "0.0.1",
+  "version": "8.0.0",
+  "description": "Angular package with C-R-U-D components and dialogs (among others..).",
+  "author": {
+    "name": "FreeIntelligence",
+    "email": "free04381@gmail.com"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nalv/ngx-simple-crud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nalv/ngx-simple-crud/issues"
+  },
+  "homepage": "https://github.com/nalv/ngx-simple-crud#readme",
+  "keywords": [
+    "angular",
+    "angular8",
+    "ng",
+    "ngx",
+    "crud",
+    "universal"
+  ],
   "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3"
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
   }
 }
