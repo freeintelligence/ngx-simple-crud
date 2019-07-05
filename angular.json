@@ -119,6 +119,41 @@
           }
         }
       }
+    },
+    "ngx-simple-crud": {
+      "projectType": "library",
+      "root": "projects/ngx-simple-crud",
+      "sourceRoot": "projects/ngx-simple-crud/src",
+      "prefix": "simple-crud",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-simple-crud/tsconfig.lib.json",
+            "project": "projects/ngx-simple-crud/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-simple-crud/src/test.ts",
+            "tsConfig": "projects/ngx-simple-crud/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-simple-crud/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-simple-crud/tsconfig.lib.json",
+              "projects/ngx-simple-crud/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ngx-simple-crud-app"
 }

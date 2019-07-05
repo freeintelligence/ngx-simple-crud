@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-simple-crud": [
+        "dist/ngx-simple-crud"
+      ],
+      "ngx-simple-crud/*": [
+        "dist/ngx-simple-crud/*"
+      ]
+    }
   }
 }
