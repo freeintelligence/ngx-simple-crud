@@ -3,6 +3,7 @@
  */
 
 export * from './lib/paginator';
+export * from './lib/utils';
 
 export * from './lib/resource-list/resource-list.component';
 

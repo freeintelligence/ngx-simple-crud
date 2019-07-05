@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterForm, ColumnInfo, FilterEvent } from 'ngx-simple-crud';
+import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils } from 'ngx-simple-crud';
 import { Paginator } from 'ngx-simple-crud';
 import { HttpClient } from '@angular/common/http';
 
@@ -26,7 +26,9 @@ export class ListComponent implements OnInit {
     { title: 'Correo electrónico', key: 'email' },
   ];
 
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email' ];
+  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'actions' ];
+
+  buttons: ActionButton[] = [ { icon: 'edit', color: 'primary', toolTip: 'Editar', handle: () => this.edit() } ];
 
   filter = (options: FilterEvent) => this.getUsers(options);
 
@@ -36,15 +38,19 @@ export class ListComponent implements OnInit {
   }
 
   async getUsers(options: FilterEvent): Promise<Paginator> {
-    await this.sleep(3000);
+    await this.sleep(1000);
 
-    const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, options.filters) }).toPromise();
+    const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
     const paginator = new Paginator();
 
     paginator.total = data.total;
     paginator.data = data.data;
 
     return paginator;
+  }
+
+  async edit() {
+
   }
 
   async sleep(ms: number = 2000) {
