@@ -1,6 +1,4 @@
 <div class="container">
-  <!--<app-absolute-spinner *ngIf="loading"></app-absolute-spinner>-->
-
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ headerTitle }}</mat-card-title>
@@ -58,8 +56,11 @@
         <div class="mini-margin-vertically-16"></div>
         <button mat-button type="button" color="primary" (click)="search()">Reintentar</button>
       </div>
+      <div *ngIf="loading" class="spinner">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
 
-      <mat-paginator #paginator [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataSource?.total" [pageSize]="pageSize" (page)="search($event.pageIndex + 1)"></mat-paginator>
+      <mat-paginator #paginator [pageSizeOptions]="pageSizeOptions" [length]="dataSource?.total" [pageSize]="pageSize" (page)="search($event.pageIndex + 1)"></mat-paginator>
     </mat-card-content>
   </mat-card>
 </div>

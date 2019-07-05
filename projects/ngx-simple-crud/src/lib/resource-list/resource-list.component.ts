@@ -45,6 +45,7 @@ export class ResourceListComponent implements OnInit {
   @Input() loading: boolean;
   @Input() error: Error;
   @Input() pageSize = 10;
+  @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input() filters: FilterForm[] = [];
   @Input() infoColumns: ColumnInfo[] = [];
   @Input() displayedColumns: string[] = [];
@@ -93,7 +94,7 @@ export class ResourceListComponent implements OnInit {
     this.loading = false;
   }
 
-  print(column: any, element: any) {
+  print(column: ColumnInfo, element: any) {
     return column.subkey ?
     (element[column.key] && element[column.key][column.subkey] ? element[column.key][column.subkey] : '') :
     (element[column.key] instanceof Function ? element[column.key]() : element[column.key]);

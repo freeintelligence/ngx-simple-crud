@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterForm, ColumnInfo, FilterEvent } from 'ngx-simple-crud/lib/resource-list/resource-list.component';
+import { FilterForm, ColumnInfo, FilterEvent } from 'ngx-simple-crud';
 import { Paginator } from 'ngx-simple-crud';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
 
   filters: FilterForm[] = [
     {
-      name: 'name',
+      name: 'filter_by_first_name',
       type: 'input',
       subtype: 'text',
       placeholder: 'Buscar por nombre',
@@ -36,6 +36,8 @@ export class ListComponent implements OnInit {
   }
 
   async getUsers(options: FilterEvent): Promise<Paginator> {
+    await this.sleep(3000);
+
     const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, options.filters) }).toPromise();
     const paginator = new Paginator();
 
@@ -43,6 +45,10 @@ export class ListComponent implements OnInit {
     paginator.data = data.data;
 
     return paginator;
+  }
+
+  async sleep(ms: number = 2000) {
+    return new Promise((resolve, reject) => setTimeout(e => resolve(), ms));
   }
 
 }

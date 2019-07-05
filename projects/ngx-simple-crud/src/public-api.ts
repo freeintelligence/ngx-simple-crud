@@ -3,4 +3,7 @@
  */
 
 export * from './lib/paginator';
+
+export * from './lib/resource-list/resource-list.component';
+
 export * from './lib/ngx-simple-crud.module';

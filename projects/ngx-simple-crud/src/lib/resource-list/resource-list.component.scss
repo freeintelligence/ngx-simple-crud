@@ -3,6 +3,14 @@
   position:relative;
   box-sizing:border-box;
 
+  .spinner {
+    width:100%;
+    padding:32px 0;
+
+    mat-spinner {
+      margin:0 auto;
+    }
+  }
   .filters {
     float:right;
 
