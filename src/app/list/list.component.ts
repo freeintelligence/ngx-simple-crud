@@ -39,9 +39,7 @@ export class ListComponent implements OnInit {
     const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, options.filters) }).toPromise();
     const paginator = new Paginator();
 
-    paginator.per_page = data.per_page;
     paginator.total = data.total;
-    paginator.current_page = data.page;
     paginator.data = data.data;
 
     return paginator;
