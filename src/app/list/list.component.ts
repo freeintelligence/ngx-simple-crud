@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
 
   async getUsers(options: FilterEvent): Promise<Paginator> {
     // await this.sleep(1000);
-    const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
+    const data: any = await this.http.get('https://reqres.in2/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
     const paginator = new Paginator();
 
     paginator.total = data.total;
@@ -59,7 +59,7 @@ export class ListComponent implements OnInit {
     }
 
     // await this.sleep(2000);
-    const data = await this.http.put(`https://reqres.in2/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
+    const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
 
     dialog.dialogRef.close();
 

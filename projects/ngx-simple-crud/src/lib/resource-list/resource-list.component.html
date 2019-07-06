@@ -51,15 +51,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-      <div *ngIf="!loading && error" class="auto-center mini-margin-vertically">
-        <mat-chip-list><mat-chip class="auto-center-item" color="warn" selected>Ocurrió un error al obtener resultados, intenta nuevamente!</mat-chip></mat-chip-list>
-        <div class="mini-margin-vertically-16"></div>
+      <div *ngIf="!loading && error" class="info-error">
+        <mat-chip-list><mat-chip color="warn" selected>Ocurrió un error al obtener resultados, intenta luego!</mat-chip></mat-chip-list>
+        <div class="separator"></div>
         <button mat-button type="button" color="primary" (click)="search()">Reintentar</button>
       </div>
 
-      <div *ngIf="!loading && !error && !dataSource?.data?.length" class="auto-center mini-margin-vertically">
-        <mat-chip-list><mat-chip class="auto-center-item" selected>No hay resultados disponibles!</mat-chip></mat-chip-list>
-        <div class="mini-margin-vertically-16"></div>
+      <div *ngIf="!loading && !error && !dataSource?.data?.length" class="info-error">
+        <mat-chip-list><mat-chip selected>No hay resultados disponibles!</mat-chip></mat-chip-list>
+        <div class="separator"></div>
         <button mat-button type="button" color="primary" (click)="search()">Reintentar</button>
       </div>
       <div *ngIf="loading" class="spinner">
