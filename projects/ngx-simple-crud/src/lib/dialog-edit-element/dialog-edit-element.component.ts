@@ -29,7 +29,7 @@ export interface EditDialogDataInterface {
 @Component({
   selector: 'simple-crud-dialog-edit-element',
   templateUrl: './dialog-edit-element.component.html',
-  styleUrls: ['./dialog-edit-element.component.css']
+  styleUrls: ['./dialog-edit-element.component.css', './../styles.scss']
 })
 export class DialogEditElementComponent implements OnInit {
 

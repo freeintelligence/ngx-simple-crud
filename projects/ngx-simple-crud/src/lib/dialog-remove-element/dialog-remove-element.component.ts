@@ -19,7 +19,7 @@ export interface RemoveDialogDataInterface {
 @Component({
   selector: 'simple-crud-dialog-remove-element',
   templateUrl: './dialog-remove-element.component.html',
-  styleUrls: ['./dialog-remove-element.component.css']
+  styleUrls: ['./dialog-remove-element.component.css', './../styles.scss']
 })
 export class DialogRemoveElementComponent implements OnInit {
 
