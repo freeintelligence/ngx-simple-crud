@@ -10,7 +10,7 @@ interface ActionButton {
   handle: (dialog: DialogEditElementComponent, invalid: boolean) => any;
 }
 
-export interface DataInterface {
+export interface EditDialogDataInterface {
   title?: string;
   element: any;
   buttons?: ActionButton[];
@@ -37,7 +37,7 @@ export class DialogEditElementComponent implements OnInit {
   error: HttpErrorResponse;
   form: FormGroup = new FormGroup({});
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DataInterface, public dialogRef: MatDialogRef<DialogEditElementComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: EditDialogDataInterface, public dialogRef: MatDialogRef<DialogEditElementComponent>) { }
 
   ngOnInit() {
     this.addControls();

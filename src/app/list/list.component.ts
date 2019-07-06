@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils, DialogEditElementComponent, Paginator, DataInterface } from 'ngx-simple-crud';
+import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils, DialogEditElementComponent, Paginator, EditDialogDataInterface, RemoveDialogDataInterface, DialogRemoveElementComponent } from 'ngx-simple-crud';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { Validators } from '@angular/forms';
@@ -66,8 +66,24 @@ export class ListComponent implements OnInit {
     return data;
   }
 
-  async remove(user: any) {
+  async deleteUser(dialog: DialogRemoveElementComponent) {
+    await this.http.delete(`https://reqres.in/api/users/${dialog.data.element.id}`).toPromise();
+    dialog.dialogRef.close();
+  }
 
+  async remove(user: any) {
+    this.dialog.open(DialogRemoveElementComponent, {
+      width: '448px',
+      data: {
+        title: 'Eliminar usuario',
+        message: `¿Estás seguro/a de querer eliminar a este usuario (${user.first_name} ${user.last_name})?`,
+        element: user,
+        buttons: [
+          { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
+          { text: 'Eliminar', color: 'warn', handle: async (dialog) => await this.deleteUser(dialog) },
+        ]
+      } as RemoveDialogDataInterface
+    });
   }
 
   async edit(user: any) {
@@ -110,7 +126,7 @@ export class ListComponent implements OnInit {
           { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
           { text: 'Guardar', color: 'primary', handle: async (dialog, invalid) => await this.updateUser(dialog, invalid) },
         ]
-      } as DataInterface
+      } as EditDialogDataInterface
     });
   }
 

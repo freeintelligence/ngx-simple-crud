@@ -1,1 +1,17 @@
-<p>dialog-remove-element works!</p>
+<h1 mat-dialog-title *ngIf="data?.title"> {{ data?.title }} </h1>
+
+<div mat-dialog-content>
+  <div *ngIf="error" class="error">
+    <mat-chip-list>
+      <mat-chip *ngIf="error" color="warn" selected>Hay problemas con el servidor. Intenta luego.</mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <p *ngIf="data?.message?.length">{{ data?.message }}</p>
+</div>
+
+<div mat-dialog-actions align="end" class="actions">
+  <mat-spinner *ngIf="loading" diameter="32"></mat-spinner>
+
+  <button *ngFor="let button of data?.buttons; let i = index" [color]="button?.color" mat-flat-button [attr.cdkFocusInitial]="!i" (click)="handle(button)" [disabled]="loading">{{ button?.text }}</button>
+</div>
