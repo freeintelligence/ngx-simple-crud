@@ -6,7 +6,7 @@ interface ActionButton {
   color?: 'primary'|'warn'|'accent';
   icon?: string;
   text?: string;
-  handle: (dialog: DialogEditElementComponent) => any;
+  handle: (dialog: DialogEditElementComponent, invalid: boolean) => any;
 }
 
 export interface DataInterface {
@@ -48,16 +48,21 @@ export class DialogEditElementComponent implements OnInit {
   }
 
   async handle(button: ActionButton) {
+    const invalid = this.form.invalid;
+
+    this.form.disable();
     this.loading = true;
     this.error = undefined;
 
     try {
-      await button.handle(this);
+      await button.handle(this, invalid);
     } catch (err) {
       this.error = err;
     }
 
     this.loading = false;
+
+    this.data.controls.forEach(control => !control.disabled ? this.form.controls[control.key].enable() : null);
   }
 
 }

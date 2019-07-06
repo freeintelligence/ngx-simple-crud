@@ -15,6 +15,8 @@
   </form>
 </div>
 
-<div mat-dialog-actions align="end">
-  <button *ngFor="let button of data?.buttons; let i = index" [color]="button?.color" mat-flat-button [attr.cdkFocusInitial]="!i" (click)="handle(button)">{{ button?.text }}</button>
+<div mat-dialog-actions align="end" class="actions">
+  <mat-spinner *ngIf="loading" diameter="32"></mat-spinner>
+
+  <button *ngFor="let button of data?.buttons; let i = index" [color]="button?.color" mat-flat-button [attr.cdkFocusInitial]="!i" (click)="handle(button)" [disabled]="form.disabled">{{ button?.text }}</button>
 </div>

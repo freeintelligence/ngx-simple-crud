@@ -53,7 +53,11 @@ export class ListComponent implements OnInit {
     return paginator;
   }
 
-  async updateUser(dialog: DialogEditElementComponent) {
+  async updateUser(dialog: DialogEditElementComponent, invalid: boolean) {
+    if (invalid) {
+      return;
+    }
+
     await this.sleep(2000);
     const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
 
@@ -96,7 +100,7 @@ export class ListComponent implements OnInit {
         } ],
         buttons: [
           { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
-          { text: 'Guardar', color: 'primary', handle: async (dialog) => await this.updateUser(dialog) },
+          { text: 'Guardar', color: 'primary', handle: async (dialog, invalid) => await this.updateUser(dialog, invalid) },
         ]
       } as DataInterface
     });
