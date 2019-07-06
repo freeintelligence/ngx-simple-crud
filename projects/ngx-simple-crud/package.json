@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "description": "Angular package with C-R-U-D components and dialogs (among others..).",
   "author": {
-    "name": "FreeIntelligence",
+    "name": "freeintelligence",
     "email": "free04381@gmail.com"
   },
   "license": "ISC",
@@ -21,10 +21,13 @@
     "ng",
     "ngx",
     "crud",
-    "universal"
+    "universal",
+    "paginator"
   ],
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/material": "^8.0.0"
   }
 }
