@@ -34,7 +34,7 @@
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element" class="actions">
             <ng-container *ngFor="let button of buttons">
               <button *ngIf="button?.text" mat-button [color]="button?.color" [matTooltip]="button?.toolTip" (click)="handle(element, button)">
                 <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
