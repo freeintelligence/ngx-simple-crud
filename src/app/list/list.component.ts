@@ -77,13 +77,15 @@ export class ListComponent implements OnInit {
           key: 'first_name',
           type: 'input',
           subtype: 'string',
-          validators: [ Validators.required ]
+          validators: [ Validators.required ],
+          width: '50%',
         }, {
           label: 'Segundo nombre',
           key: 'last_name',
           type: 'input',
           subtype: 'string',
           validators: [ Validators.required ],
+          width: '50%',
         }, {
           label: 'Correo electrónico',
           key: 'email',

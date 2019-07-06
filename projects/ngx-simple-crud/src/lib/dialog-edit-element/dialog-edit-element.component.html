@@ -2,7 +2,7 @@
 
 <div mat-dialog-content>
   <form [formGroup]="form" autocomplete="off">
-    <mat-form-field *ngFor="let control of data.controls" appearance="outline">
+    <mat-form-field *ngFor="let control of data.controls" appearance="outline" [style.width]="control?.width ? control.width : '100%'">
       <mat-label> {{ control?.label }} </mat-label>
 
       <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key" [name]="control.key">

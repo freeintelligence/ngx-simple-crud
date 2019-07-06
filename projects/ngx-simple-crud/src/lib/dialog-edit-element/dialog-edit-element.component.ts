@@ -21,6 +21,7 @@ export interface DataInterface {
     options?: { value: any, description: string }[];
     validators?: ValidatorFn[];
     disabled?: boolean;
+    width?: string;
   }[];
 }
 
