@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup, ValidatorFn, FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface ActionButton {
   color?: 'primary'|'warn'|'accent';
@@ -33,7 +34,7 @@ export interface DataInterface {
 export class DialogEditElementComponent implements OnInit {
 
   loading: boolean;
-  error: Error;
+  error: HttpErrorResponse;
   form: FormGroup = new FormGroup({});
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DataInterface, public dialogRef: MatDialogRef<DialogEditElementComponent>) { }

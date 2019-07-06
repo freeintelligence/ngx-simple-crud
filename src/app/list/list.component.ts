@@ -58,8 +58,8 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    await this.sleep(2000);
-    const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
+    // await this.sleep(2000);
+    const data = await this.http.put(`https://reqres.in2/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
 
     dialog.dialogRef.close();
 
