@@ -18,9 +18,10 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DialogEditElementComponent } from './dialog-edit-element/dialog-edit-element.component';
+import { DialogRemoveElementComponent } from './dialog-remove-element/dialog-remove-element.component';
 
 @NgModule({
-  declarations: [ResourceListComponent, DialogEditElementComponent],
+  declarations: [ResourceListComponent, DialogEditElementComponent, DialogRemoveElementComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +42,6 @@ import { DialogEditElementComponent } from './dialog-edit-element/dialog-edit-el
     MatDialogModule,
   ],
   exports: [ResourceListComponent],
-  entryComponents: [DialogEditElementComponent],
+  entryComponents: [DialogEditElementComponent, DialogRemoveElementComponent],
 })
 export class NgxSimpleCrudModule { }
