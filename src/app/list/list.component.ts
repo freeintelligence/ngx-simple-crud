@@ -92,13 +92,15 @@ export class ListComponent implements OnInit {
           type: 'input',
           subtype: 'email',
           validators: [ Validators.required, Validators.email ],
-          disabled: true
+          disabled: true,
+          width: '50%',
         }, {
           label: 'Estado',
           key: 'status',
           type: 'select',
           options: [ { value: 0, description: 'Desactivo' }, { value: 1, description: 'Activo' } ],
           validators: [],
+          width: '50%',
         } ],
         buttons: [
           { text: 'Cerrar', handle: (dialog) => dialog.dialogRef.close() },
