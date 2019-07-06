@@ -54,6 +54,7 @@ export class ListComponent implements OnInit {
   }
 
   async updateUser(dialog: DialogEditElementComponent) {
+    await this.sleep(2000);
     const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
 
     dialog.dialogRef.close();
@@ -75,7 +76,7 @@ export class ListComponent implements OnInit {
           validators: [ Validators.required ]
         }, {
           label: 'Segundo nombre',
-          key: 'second_name',
+          key: 'last_name',
           type: 'input',
           subtype: 'string',
           validators: [ Validators.required ],
@@ -85,11 +86,12 @@ export class ListComponent implements OnInit {
           type: 'input',
           subtype: 'email',
           validators: [ Validators.required, Validators.email ],
+          disabled: true
         }, {
           label: 'Estado',
           key: 'status',
           type: 'select',
-          options: [ { value: undefined, description: 'Todos' }, { value: 0, description: 'Desactivo' }, { value: 1, description: 'Activo' } ],
+          options: [ { value: 0, description: 'Desactivo' }, { value: 1, description: 'Activo' } ],
           validators: [],
         } ],
         buttons: [
