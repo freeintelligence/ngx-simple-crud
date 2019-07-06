@@ -30,9 +30,9 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'actions' ];
 
   buttons: ActionButton[] = [ {
-    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element)
+    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element),
   }, {
-    text: 'Prueba', handle: (element: any) => null,
+    icon: 'remove_circle', color: 'warn', toolTip: 'Eliminar', handle: (element: any) => this.remove(element),
   } ];
 
   filter = (options: FilterEvent) => this.getUsers(options);
@@ -64,6 +64,10 @@ export class ListComponent implements OnInit {
     dialog.dialogRef.close();
 
     return data;
+  }
+
+  async remove(user: any) {
+
   }
 
   async edit(user: any) {
