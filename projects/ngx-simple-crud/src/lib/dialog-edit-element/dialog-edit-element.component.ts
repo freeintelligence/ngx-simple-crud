@@ -50,6 +50,7 @@ export class DialogEditElementComponent implements OnInit {
   }
 
   async handle(button: ActionButton) {
+    this.form.markAllAsTouched();
     const invalid = this.form.invalid;
 
     this.form.disable();

@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
 
   async getUsers(options: FilterEvent): Promise<Paginator> {
     // await this.sleep(1000);
-    const data: any = await this.http.get('https://reqres.in2/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
+    const data: any = await this.http.get('https://reqres.in/api/users', { params: Object.assign({ page: options.pageIndex.toString(), per_page: options.pageSize.toString() }, Utils.cleanObject(options.filters)) }).toPromise();
     const paginator = new Paginator();
 
     paginator.total = data.total;
@@ -103,7 +103,7 @@ export class ListComponent implements OnInit {
           key: 'status',
           type: 'select',
           options: [ { value: 0, description: 'Desactivo' }, { value: 1, description: 'Activo' } ],
-          validators: [],
+          validators: [ Validators.required ],
           width: '50%',
         } ],
         buttons: [
