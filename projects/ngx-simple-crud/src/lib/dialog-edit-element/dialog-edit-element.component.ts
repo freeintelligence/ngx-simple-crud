@@ -25,6 +25,7 @@ export interface EditDialogDataInterface {
     disabled?: boolean;
     width?: string;
     chipsSeparatorKeysCodes?: any[],
+    chipValidators?: ValidatorFn[],
   }[];
 }
 
@@ -53,6 +54,10 @@ export class DialogEditElementComponent implements OnInit {
         value: this.getFirstControlValue(control),
         disabled: control.disabled
       }, control.validators));
+
+      if (control.type === 'chips') {
+        this.form.addControl(`${control.key}_chip_validation`, new FormControl(null, control.chipValidators));
+      }
     }
   }
 
@@ -80,7 +85,8 @@ export class DialogEditElementComponent implements OnInit {
 
     this.loading = false;
 
-    this.data.controls.forEach(control => !control.disabled ? this.form.controls[control.key].enable() : null);
+    this.form.enable();
+    this.data.controls.forEach(control => control.disabled ? this.form.controls[control.key].disable() : null);
   }
 
   async removeChip(controlName: string, element: string) {
@@ -93,7 +99,11 @@ export class DialogEditElementComponent implements OnInit {
     }
   }
 
-  async add(controlName: string, event: MatChipInputEvent) {
+  async addChip(controlName: string, event: MatChipInputEvent) {
+    if (this.form.controls[`${controlName}_chip_validation`].invalid) {
+      return this.form.controls[`${controlName}_chip_validation`].markAsTouched();
+    }
+
     const input = event.input;
     const value = event.value;
 

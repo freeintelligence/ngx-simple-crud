@@ -116,6 +116,7 @@ export class ListComponent implements OnInit {
           type: 'chips',
           subtype: 'text',
           validators: [ Validators.required ],
+          chipValidators: [ Validators.email ],
         }, {
           label: 'Correo electrónico',
           key: 'email',

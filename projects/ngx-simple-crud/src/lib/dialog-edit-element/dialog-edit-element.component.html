@@ -18,13 +18,13 @@
         <mat-option *ngFor="let option of control?.options" [value]="option?.value"> {{ option?.description }} </mat-option>
       </mat-select>
 
-      <mat-chip-list *ngIf="control?.type === 'chips'" #chipList>
+      <mat-chip-list *ngIf="control?.type === 'chips'" #chipList [formControlName]="control.key+'_chip_validation'">
         <mat-chip *ngFor="let element of form.controls[control?.key].value" [selectable]="false" [removable]="true" (removed)="removeChip(control.key, element)">
           {{ element }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
 
-        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="control?.chipsSeparatorKeysCodes || separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add(control.key, $event)">
+        <input (keyup)="form.controls[control.key+'_chip_validation'].setValue($event.target.value)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="control?.chipsSeparatorKeysCodes || separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addChip(control.key, $event)">
       </mat-chip-list>
     </mat-form-field>
   </form>
