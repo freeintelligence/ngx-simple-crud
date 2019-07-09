@@ -24,8 +24,9 @@ export interface EditDialogDataInterface {
     validators?: ValidatorFn[];
     disabled?: boolean;
     width?: string;
-    chipsSeparatorKeysCodes?: any[],
-    chipValidators?: ValidatorFn[],
+    chipsSeparatorKeysCodes?: any[];
+    chipValidators?: ValidatorFn[];
+    inputMask?: (value: string) => string;
   }[];
 }
 
@@ -120,6 +121,13 @@ export class DialogEditElementComponent implements OnInit {
 
     if (input) {
       input.value = '';
+    }
+  }
+
+  inputMask(controlName: string, event: KeyboardEvent) {
+    const control = this.data.controls.find(c => c.key === controlName);
+    if (control && typeof control.inputMask === 'function') {
+      this.form.controls[controlName].setValue(control.inputMask((event.target as any).value));
     }
   }
 

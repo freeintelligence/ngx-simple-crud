@@ -12,7 +12,7 @@
     <mat-form-field *ngFor="let control of data.controls" appearance="outline" [style.width]="control?.width ? control.width : '100%'">
       <mat-label> {{ control?.label }} </mat-label>
 
-      <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key">
+      <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key" (keyup)="inputMask(control.key, $event)">
 
       <mat-select *ngIf="control?.type === 'select'" [formControlName]="control.key">
         <mat-option *ngFor="let option of control?.options" [value]="option?.value"> {{ option?.description }} </mat-option>
