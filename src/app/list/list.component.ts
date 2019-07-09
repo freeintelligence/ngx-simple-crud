@@ -54,6 +54,10 @@ export class ListComponent implements OnInit {
   }
 
   async updateUser(dialog: DialogEditElementComponent, invalid: boolean) {
+    if (true) {
+      console.log(dialog.form.value);
+    }
+
     if (invalid) {
       return;
     }
@@ -114,6 +118,12 @@ export class ListComponent implements OnInit {
           validators: [ Validators.required, Validators.email ],
           disabled: true,
           width: '50%',
+        }, {
+          label: 'Lista de correos electrónicos',
+          key: 'emails',
+          type: 'chips',
+          subtype: 'text',
+          validators: [ Validators.required ],
         }, {
           label: 'Estado',
           key: 'status',

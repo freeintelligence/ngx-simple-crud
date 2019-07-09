@@ -18,6 +18,14 @@
         <mat-option *ngFor="let option of control?.options" [value]="option?.value"> {{ option?.description }} </mat-option>
       </mat-select>
 
+      <mat-chip-list *ngIf="control?.type === 'chips'" #chipList>
+        <mat-chip *ngFor="let element of form.controls[control?.key].value" [selectable]="true" [removable]="true" (removed)="removeChip(control.key, element)">
+          {{ element }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add(control.key, $event)">
+      </mat-chip-list>
     </mat-form-field>
   </form>
 </div>
