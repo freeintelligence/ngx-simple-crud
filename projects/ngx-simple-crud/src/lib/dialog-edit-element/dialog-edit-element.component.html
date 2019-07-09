@@ -24,7 +24,7 @@
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
 
-        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add(control.key, $event)">
+        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="control?.chipsSeparatorKeysCodes || separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add(control.key, $event)">
       </mat-chip-list>
     </mat-form-field>
   </form>
