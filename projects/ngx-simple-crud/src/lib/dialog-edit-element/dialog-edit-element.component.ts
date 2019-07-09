@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatChipInputEvent } from '@angular/material';
 import { FormGroup, ValidatorFn, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 interface ActionButton {
   color?: 'primary'|'warn'|'accent';
@@ -41,7 +41,7 @@ export class DialogEditElementComponent implements OnInit {
   error: HttpErrorResponse;
   form: FormGroup = new FormGroup({});
 
-  readonly separatorKeysCodes: number[] = [ ENTER, COMMA, SPACE ];
+  readonly separatorKeysCodes: number[] = [ ENTER, COMMA ];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: EditDialogDataInterface, public dialogRef: MatDialogRef<DialogEditElementComponent>) { }
 

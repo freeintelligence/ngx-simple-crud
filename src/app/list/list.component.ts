@@ -111,7 +111,7 @@ export class ListComponent implements OnInit {
           validators: [ Validators.required ],
           width: '50%',
         }, {
-          label: 'Lista de correos electrónicos',
+          label: 'Lista de correos electrónicos (separados por coma)',
           key: 'emails',
           type: 'chips',
           subtype: 'text',
