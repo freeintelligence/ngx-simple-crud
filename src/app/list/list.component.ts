@@ -111,6 +111,12 @@ export class ListComponent implements OnInit {
           validators: [ Validators.required ],
           width: '50%',
         }, {
+          label: 'Lista de correos electrónicos',
+          key: 'emails',
+          type: 'chips',
+          subtype: 'text',
+          validators: [ Validators.required ],
+        }, {
           label: 'Correo electrónico',
           key: 'email',
           type: 'input',
@@ -118,12 +124,6 @@ export class ListComponent implements OnInit {
           validators: [ Validators.required, Validators.email ],
           disabled: true,
           width: '50%',
-        }, {
-          label: 'Lista de correos electrónicos',
-          key: 'emails',
-          type: 'chips',
-          subtype: 'text',
-          validators: [ Validators.required ],
         }, {
           label: 'Estado',
           key: 'status',

@@ -12,14 +12,14 @@
     <mat-form-field *ngFor="let control of data.controls" appearance="outline" [style.width]="control?.width ? control.width : '100%'">
       <mat-label> {{ control?.label }} </mat-label>
 
-      <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key" [name]="control.key">
+      <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key">
 
       <mat-select *ngIf="control?.type === 'select'" [formControlName]="control.key">
         <mat-option *ngFor="let option of control?.options" [value]="option?.value"> {{ option?.description }} </mat-option>
       </mat-select>
 
       <mat-chip-list *ngIf="control?.type === 'chips'" #chipList>
-        <mat-chip *ngFor="let element of form.controls[control?.key].value" [selectable]="true" [removable]="true" (removed)="removeChip(control.key, element)">
+        <mat-chip *ngFor="let element of form.controls[control?.key].value" [selectable]="false" [removable]="true" (removed)="removeChip(control.key, element)">
           {{ element }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
