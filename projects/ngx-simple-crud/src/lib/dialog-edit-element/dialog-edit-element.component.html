@@ -14,7 +14,7 @@
 
       <input *ngIf="control?.type === 'input'" matInput [type]="control?.subtype" [formControlName]="control.key" (keyup)="inputMask(control.key, $event)">
 
-      <mat-select *ngIf="control?.type === 'select'" [formControlName]="control.key">
+      <mat-select *ngIf="control?.type === 'select'" [formControlName]="control.key" [multiple]="control?.multiple">
         <mat-option *ngFor="let option of control?.options" [value]="option?.value"> {{ option?.description }} </mat-option>
       </mat-select>
 

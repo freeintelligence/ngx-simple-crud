@@ -24,6 +24,7 @@ export interface EditDialogDataInterface {
     validators?: ValidatorFn[];
     disabled?: boolean;
     width?: string;
+    multiple?: boolean;
     chipsSeparatorKeysCodes?: any[];
     chipValidators?: ValidatorFn[];
     inputMask?: (value: string) => string;

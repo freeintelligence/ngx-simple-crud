@@ -126,6 +126,14 @@ export class ListComponent implements OnInit {
           disabled: true,
           width: '50%',
         }, {
+          label: 'Opciones',
+          key: 'options',
+          type: 'select',
+          multiple: true,
+          options: [...new Array(10).keys()].map(e => {
+            return { value: e, description: `Opción ${e}` };
+          }),
+        }, {
           label: 'Estado',
           key: 'status',
           type: 'select',
