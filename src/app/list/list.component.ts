@@ -3,6 +3,7 @@ import { FilterForm, ColumnInfo, FilterEvent, ActionButton, Utils, DialogEditEle
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { Validators } from '@angular/forms';
+import { NumberService } from 'ngx-number-validation';
 
 @Component({
   selector: 'app-list',
@@ -37,7 +38,7 @@ export class ListComponent implements OnInit {
 
   filter = (options: FilterEvent) => this.getUsers(options);
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private dialog: MatDialog, private numberService: NumberService) { }
 
   ngOnInit() {
   }
@@ -133,6 +134,19 @@ export class ListComponent implements OnInit {
           options: [...new Array(10).keys()].map(e => {
             return { value: e, description: `Opción ${e}` };
           }),
+        }, {
+          label: 'Número (millares)',
+          key: 'number',
+          type: 'input',
+          subtype: 'text',
+          validators: [ Validators.required ],
+          width: '50%',
+          inputMask: (value, event) => {
+            if (event.key === this.numberService.getConfig().thousandSeparator || event.key === this.numberService.getConfig().decimalSeparator) {
+              return value;
+            }
+            return this.numberService.transform().format(value);
+          }
         }, {
           label: 'Estado',
           key: 'status',

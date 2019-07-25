@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSimpleCrudModule } from 'ngx-simple-crud';
 import { ListComponent } from './list/list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxNumberValidationModule } from 'ngx-number-validation';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     NgxSimpleCrudModule,
     HttpClientModule,
+    NgxNumberValidationModule.forRoot({ thousandSeparator: '.', decimalSeparator: ',', decimalCount: 1 }),
   ],
   providers: [],
   bootstrap: [AppComponent]
