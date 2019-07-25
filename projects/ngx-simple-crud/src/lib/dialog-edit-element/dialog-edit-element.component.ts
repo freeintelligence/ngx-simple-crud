@@ -28,6 +28,7 @@ export interface EditDialogDataInterface {
     chipsSeparatorKeysCodes?: any[];
     chipValidators?: ValidatorFn[];
     inputMask?: (value: string, event: KeyboardEvent) => string;
+    valueMask?: (value: any) => any;
   }[];
 }
 
@@ -48,6 +49,23 @@ export class DialogEditElementComponent implements OnInit {
 
   ngOnInit() {
     this.addControls();
+  }
+
+  value() {
+    const value = this.form.value;
+    const result = {};
+
+    for (const controlName in value) {
+      if (!value.hasOwnProperty(controlName)) {
+        continue;
+      }
+
+      const control = this.data.controls.find(c => c.key === controlName);
+
+      result[controlName] = (control && typeof control.valueMask === 'function') ? control.valueMask(value[controlName]) : value[controlName];
+    }
+
+    return result;
   }
 
   addControls() {

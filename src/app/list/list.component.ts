@@ -57,6 +57,7 @@ export class ListComponent implements OnInit {
   async updateUser(dialog: DialogEditElementComponent, invalid: boolean) {
     if (true) {
       console.log(dialog.form.value);
+      console.log(dialog.value());
     }
 
     if (invalid) {
@@ -64,7 +65,7 @@ export class ListComponent implements OnInit {
     }
 
     // await this.sleep(2000);
-    const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.form.value).toPromise();
+    const data = await this.http.put(`https://reqres.in/api/users/${dialog.data.element.id}`, dialog.value()).toPromise();
 
     dialog.dialogRef.close();
 
@@ -146,6 +147,9 @@ export class ListComponent implements OnInit {
               return value;
             }
             return this.numberService.transform().format(value);
+          },
+          valueMask: (value) => {
+            return this.numberService.transform().toInt(value);
           }
         }, {
           label: 'Estado',
