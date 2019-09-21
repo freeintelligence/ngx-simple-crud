@@ -13,6 +13,7 @@ interface ActionButton {
 
 export interface EditDialogDataInterface {
   title?: string;
+  message?: string;
   element: any;
   buttons?: ActionButton[];
   controls: {

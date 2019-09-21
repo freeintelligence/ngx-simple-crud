@@ -7,7 +7,7 @@
     </mat-chip-list>
   </div>
 
-  <p *ngIf="data?.message?.length">{{ data?.message }}</p>
+  <p *ngIf="data?.message?.length" [innerHTML]="data?.message"></p>
 </div>
 
 <div mat-dialog-actions align="end" class="actions">

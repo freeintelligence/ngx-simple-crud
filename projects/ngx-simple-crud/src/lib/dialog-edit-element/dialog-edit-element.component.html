@@ -8,6 +8,8 @@
     </mat-chip-list>
   </div>
 
+  <p *ngIf="data?.message?.length" [innerHTML]="data?.message"></p>
+
   <form [formGroup]="form" autocomplete="off">
     <mat-form-field *ngFor="let control of data.controls" appearance="outline" [style.width]="control?.width ? control.width : '100%'">
       <mat-label> {{ control?.label }} </mat-label>

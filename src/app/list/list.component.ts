@@ -97,6 +97,7 @@ export class ListComponent implements OnInit {
       width: '512px',
       data: {
         title: 'Modificar usuario',
+        message: 'Formulario para modificar a un usuario..',
         element: user,
         controls: [ {
           label: 'Primer nombre',
