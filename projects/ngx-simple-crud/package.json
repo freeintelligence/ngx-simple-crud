@@ -1,7 +1,7 @@
 {
   "name": "ngx-simple-crud",
-  "version": "8.3.0",
-  "description": "Angular package with C-R-U-D components and dialogs (among others..).",
+  "version": "8.4.0",
+  "description": "Angular package with CRUD components and dialogs (among others..).",
   "author": {
     "name": "freeintelligence",
     "email": "free04381@gmail.com"
