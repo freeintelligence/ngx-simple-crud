@@ -31,6 +31,8 @@ export interface ActionButton {
   icon?: string;
   text?: string;
   handle: (element: any) => any;
+  disabled?: (element: any) => boolean;
+  hidden?: (element: any) => boolean;
 }
 
 @Component({
@@ -76,6 +78,26 @@ export class ResourceListComponent implements OnInit {
     if (button && typeof button.handle === 'function') {
       button.handle(element);
     }
+  }
+
+  hidden(element: any, button: ActionButton) {
+    if (button && typeof button.hidden === 'function') {
+      return button.hidden(element);
+    } else if (button && typeof button.hidden === 'boolean') {
+      return button.hidden;
+    }
+
+    return false;
+  }
+
+  disabled(element: any, button: ActionButton) {
+    if (button && typeof button.disabled === 'function') {
+      return button.disabled(element);
+    } else if (button && typeof button.disabled === 'boolean') {
+      return button.disabled;
+    }
+
+    return false;
   }
 
   async search(pageIndex: number = 1) {

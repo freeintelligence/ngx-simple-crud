@@ -36,11 +36,11 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element" class="actions">
             <ng-container *ngFor="let button of buttons">
-              <button *ngIf="button?.text" mat-button [color]="button?.color" [matTooltip]="button?.toolTip" (click)="handle(element, button)">
+              <button *ngIf="button?.text" mat-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(element, button)" [disabled]="disabled(element, button)" (click)="handle(element, button)">
                 <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
                 {{ button?.text }}
               </button>
-              <button *ngIf="!button?.text" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip" (click)="handle(element, button)">
+              <button *ngIf="!button?.text" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(element, button)" [disabled]="disabled(element, button)" (click)="handle(element, button)">
                 <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
               </button>
             </ng-container>

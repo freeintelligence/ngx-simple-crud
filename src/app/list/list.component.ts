@@ -28,10 +28,10 @@ export class ListComponent implements OnInit {
     { title: 'Correo electrónico', key: 'email' },
   ];
 
-  displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'actions' ];
+  displayedColumns: string[] = [ 'id', 'first_name', 'last_name', 'email', 'actions' ];
 
   buttons: ActionButton[] = [ {
-    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element),
+    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element), disabled: (element) => true,
   }, {
     icon: 'remove_circle', color: 'warn', toolTip: 'Eliminar', handle: (element: any) => this.remove(element),
   } ];
