@@ -50,6 +50,7 @@ export class ResourceListComponent implements OnInit {
   @Input() pageSize = 10;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input() filters: FilterForm[] = [];
+  @Input() filterButtons: ActionButton[] = [];
   @Input() infoColumns: ColumnInfo[] = [];
   @Input() displayedColumns: string[] = [];
   @Input() filter: (options: FilterEvent) => Promise<Paginator>;

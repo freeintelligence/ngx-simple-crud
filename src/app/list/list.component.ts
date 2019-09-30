@@ -21,6 +21,10 @@ export class ListComponent implements OnInit {
     }
   ];
 
+  filterButtons: ActionButton[] = [
+    { color: 'primary', text: 'Descargar reporte', icon: 'cloud_download', handle: () => {} }
+  ]
+
   infoColumns: ColumnInfo[] = [
     { title: '#', key: 'id' },
     { title: 'Primer nombre', key: 'first_name' },
@@ -30,11 +34,10 @@ export class ListComponent implements OnInit {
 
   displayedColumns: string[] = [ 'id', 'first_name', 'last_name', 'email', 'actions' ];
 
-  buttons: ActionButton[] = [ {
-    icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element), disabled: (element) => true,
-  }, {
-    icon: 'remove_circle', color: 'warn', toolTip: 'Eliminar', handle: (element: any) => this.remove(element),
-  } ];
+  buttons: ActionButton[] = [
+    { icon: 'edit', color: 'primary', toolTip: 'Editar', handle: (element: any) => this.edit(element), disabled: (element) => true },
+    { icon: 'remove_circle', color: 'warn', toolTip: 'Eliminar', handle: (element: any) => this.remove(element) }
+  ];
 
   filter = (options: FilterEvent) => this.getUsers(options);
 
