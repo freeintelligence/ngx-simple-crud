@@ -12,7 +12,7 @@
             <mat-option *ngFor="let option of field.options" [value]="option.value">{{ option.description }}</mat-option>
           </mat-select>
 
-          <input *ngIf="field.type === 'input'" matInput [type]="field.subtype" [placeholder]="field.placeholder" [formControlName]="field.name" [style.width]="field.width">
+          <input *ngIf="field.type === 'input'" matInput [type]="field.subtype" [placeholder]="field.placeholder" [formControlName]="field.name" [style.width]="field.width" (keyup)="inputMask(field, $event)">
 
           <ng-container *ngIf="field.type === 'date'">
             <input matInput #date_input [formControlName]="field.name" [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field.placeholder">

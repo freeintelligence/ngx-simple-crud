@@ -17,6 +17,8 @@ export interface FilterForm {
   options?: { value: any, description: string }[];
   value?: any;
   width?: string;
+  inputMask?: (value: string, event: KeyboardEvent) => string;
+  valueMask?: (value: any) => any;
 }
 
 export interface ColumnInfo {
@@ -122,6 +124,12 @@ export class ResourceListComponent implements OnInit {
     return column.subkey ?
     (element[column.key] && element[column.key][column.subkey] ? element[column.key][column.subkey] : '') :
     (element[column.key] instanceof Function ? element[column.key]() : element[column.key]);
+  }
+
+  inputMask(field: FilterForm, event: KeyboardEvent) {
+    if (field && typeof field.inputMask === 'function') {
+      this.filtersFormGroup.controls[field.name].setValue(field.inputMask((event.target as any).value, event));
+    }
   }
 
 }

@@ -12,18 +12,23 @@ import { NumberService } from 'ngx-number-validation';
 })
 export class ListComponent implements OnInit {
 
-  filters: FilterForm[] = [
-    {
-      name: 'filter_by_first_name',
-      type: 'input',
-      subtype: 'text',
-      placeholder: 'Buscar por nombre',
-    }
-  ];
+  filters: FilterForm[] = [ {
+    name: 'filter_by_first_name',
+    type: 'input',
+    subtype: 'text',
+    placeholder: 'Buscar por nombre',
+  }, {
+    name: 'filter_by_account_number',
+    type: 'input',
+    subtype: 'text',
+    placeholder: 'Número de cuenta',
+    inputMask: (value: string, event: KeyboardEvent) => value.replace(/-/g, '').split(/(?<=^(?:.{2})+)(?!$)/).join('-'),
+    valueMask: (value: string) => value.replace(/-/g, '')
+  } ];
 
   filterButtons: ActionButton[] = [
     { color: 'primary', text: 'Descargar reporte', icon: 'cloud_download', handle: () => {} }
-  ]
+  ];
 
   infoColumns: ColumnInfo[] = [
     { title: '#', key: 'id' },
