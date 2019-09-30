@@ -38,6 +38,16 @@ export interface ActionButton {
   hidden?: (element: any) => boolean;
 }
 
+export interface FilterButton {
+  color?: 'primary'|'warn'|'accent';
+  toolTip?: string;
+  icon?: string;
+  text?: string;
+  handle: (filters: any) => any;
+  disabled?: () => boolean;
+  hidden?: () => boolean;
+}
+
 @Component({
   selector: 'simple-crud-resource-list',
   templateUrl: './resource-list.component.html',
@@ -53,7 +63,7 @@ export class ResourceListComponent implements OnInit {
   @Input() pageSize = 10;
   @Input() pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input() filters: FilterForm[] = [];
-  @Input() filterButtons: ActionButton[] = [];
+  @Input() filterButtons: FilterButton[] = [];
   @Input() infoColumns: ColumnInfo[] = [];
   @Input() displayedColumns: string[] = [];
   @Input() filter: (options: FilterEvent) => Promise<Paginator>;
@@ -76,6 +86,12 @@ export class ResourceListComponent implements OnInit {
     this.filters.forEach(filter => {
       this.filtersFormGroup.addControl(filter.name, new FormControl(filter.value));
     });
+  }
+
+  handleFilterButton(button: FilterButton) {
+    if (button && typeof button.handle === 'function') {
+      button.handle(this.valueMask(Utils.cleanObject(this.filtersFormGroup.value)))
+    }
   }
 
   handle(element: any, button: ActionButton) {

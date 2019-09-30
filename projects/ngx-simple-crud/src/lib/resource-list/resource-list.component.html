@@ -24,11 +24,11 @@
 
         <button mat-flat-button color="primary">Buscar</button>
         <ng-container *ngFor="let button of filterButtons">
-          <button *ngIf="button?.text" type="button" mat-flat-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(null, button)" [disabled]="disabled(null, button)" (click)="handle(null, button)">
+          <button *ngIf="button?.text" type="button" mat-flat-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(null, button)" [disabled]="disabled(null, button)" (click)="handleFilterButton(button)">
             <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
             {{ button?.text }}
           </button>
-          <button *ngIf="!button?.text" type="button" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(null, button)" [disabled]="disabled(null, button)" (click)="handle(null, button)">
+          <button *ngIf="!button?.text" type="button" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip" [hidden]="hidden(null, button)" [disabled]="disabled(null, button)" (click)="handleFilterButton(button)">
             <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
           </button>
         </ng-container>
