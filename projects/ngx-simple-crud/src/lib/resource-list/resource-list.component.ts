@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material';
 import { Paginator } from './../paginator';
+import { Utils } from '../utils';
 
 export interface FilterEvent {
   pageIndex: number;
@@ -112,7 +113,7 @@ export class ResourceListComponent implements OnInit {
     }
 
     try {
-      this.dataSource = await this.filter({ pageIndex, pageSize: this.paginator.pageSize || this.pageSize, filters: this.filtersFormGroup.value });
+      this.dataSource = await this.filter({ pageIndex, pageSize: this.paginator.pageSize || this.pageSize, filters: this.valueMask(Utils.cleanObject(this.filtersFormGroup.value)) });
     } catch (err) {
       this.error = err;
     }
@@ -124,6 +125,22 @@ export class ResourceListComponent implements OnInit {
     return column.subkey ?
     (element[column.key] && element[column.key][column.subkey] ? element[column.key][column.subkey] : '') :
     (element[column.key] instanceof Function ? element[column.key]() : element[column.key]);
+  }
+
+  valueMask(data: any) {
+    for (const key in data) {
+      if (!data.hasOwnProperty(key)) {
+        continue;
+      }
+
+      const field = this.filters.find(filter => filter.name === key);
+
+      if (field && typeof field.valueMask === 'function') {
+        data[key] = field.valueMask(data[key]);
+      }
+    }
+
+    return data;
   }
 
   inputMask(field: FilterForm, event: KeyboardEvent) {

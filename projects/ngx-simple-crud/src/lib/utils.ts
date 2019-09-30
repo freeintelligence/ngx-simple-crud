@@ -11,7 +11,7 @@ export class Utils {
     const result = {};
 
     for (const i in data) {
-      if (data[i] === null || data[i] === undefined || (typeof data[i] === 'number' && isNaN(data[i]))) {
+      if (data[i] === null || data[i] === undefined || (typeof data[i] === 'number' && isNaN(data[i])) || (typeof data[i] === 'string' && !data[i].length)) {
         continue;
       }
 
