@@ -87,7 +87,7 @@ export class DialogEditElementComponent implements OnInit {
       return [];
     }
 
-    if (typeof control.inputMask === 'function') {
+    if (typeof control.inputMask === 'function' && this.data.element[control.key]) {
       return control.inputMask(this.data.element[control.key], null);
     }
 
