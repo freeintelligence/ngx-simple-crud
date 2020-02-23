@@ -19,12 +19,14 @@
       "dom"
     ],
     "paths": {
-      "ngx-simple-crud": [
-        "dist/ngx-simple-crud"
-      ],
-      "ngx-simple-crud/*": [
-        "dist/ngx-simple-crud/*"
+      "simple-crud": [
+        "dist/simple-crud/simple-crud",
+        "dist/simple-crud"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }
