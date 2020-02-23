@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
-import { SimpleCrudComponent } from './simple-crud.component';
-
-
 
 @NgModule({
-  declarations: [SimpleCrudComponent],
+  declarations: [],
   imports: [
   ],
-  exports: [SimpleCrudComponent]
+  exports: []
 })
 export class SimpleCrudModule { }
