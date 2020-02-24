@@ -6,7 +6,7 @@ export interface FilterButton {
   type?: 'submit'|'button';
   color?: 'accent'|'primary'|'warn';
   tooltip?: string;
-  handle?: (filters?: FilterField) => any;
-  disabled?: (filters?: FilterField) => any;
-  hidden?: (filters?: FilterField) => any;
+  handle?: (filters?: { [ key: string ]: FilterField }) => any;
+  disabled?: (filters?: { [ key: string ]: FilterField }) => boolean;
+  hidden?: (filters?: { [ key: string ]: FilterField }) => boolean;
 }

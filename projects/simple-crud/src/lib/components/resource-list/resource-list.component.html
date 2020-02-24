@@ -7,7 +7,7 @@
     <mat-card-content>
       <form class="filters" (ngSubmit)="filter()" autocomplete="off">
         <simple-crud-filter-field *ngFor="let field of filterFields" [field]="field"></simple-crud-filter-field>
-        <simple-crud-filter-button *ngFor="let button of filterButtons" [button]="button"></simple-crud-filter-button>
+        <simple-crud-filter-button *ngFor="let button of filterButtons" [button]="button" [filterFields]="filterFields"></simple-crud-filter-button>
       </form>
     </mat-card-content>
   </mat-card>
