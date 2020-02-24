@@ -1,0 +1,15 @@
+<mat-form-field [style.width]="field.width">
+
+  <mat-select *ngIf="field.type === 'select'" [placeholder]="field.placeholder" [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [style.width]="field.width" [multiple]="field?.typeSelect?.multiple">
+    <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
+  </mat-select>
+
+  <input *ngIf="field.type === 'input'" matInput [type]="field?.typeInput?.type" [placeholder]="field.placeholder" [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [style.width]="field.width">
+
+  <ng-container *ngIf="field.type === 'date'">
+    <input matInput #date_input [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field.placeholder">
+    <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
+    <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
+  </ng-container>
+
+</mat-form-field>

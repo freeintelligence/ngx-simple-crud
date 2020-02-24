@@ -5,22 +5,8 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="filtersFormGroup" class="filters" (ngSubmit)="filter()" autocomplete="off">
-        <mat-form-field *ngFor="let field of filters" [style.width]="field.width">
-
-          <mat-select *ngIf="field.type === 'select'" [placeholder]="field.placeholder" [formControlName]="field.key" [style.width]="field.width" [multiple]="field?.typeSelect?.multiple">
-            <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
-          </mat-select>
-
-          <input *ngIf="field.type === 'input'" matInput [type]="field?.typeInput?.type" [placeholder]="field.placeholder" [formControlName]="field.key" [style.width]="field.width" (keyup)="inputMask(field, $event)">
-
-          <ng-container *ngIf="field.type === 'date'">
-            <input matInput #date_input [formControlName]="field.key" [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field.placeholder">
-            <mat-datepicker-toggle matSuffix [for]="date_picker" class="mat-datepicker-toggle-suffix"></mat-datepicker-toggle>
-            <mat-datepicker #date_picker (closed)="date_input.blur()"></mat-datepicker>
-          </ng-container>
-
-        </mat-form-field>
+      <form class="filters" (ngSubmit)="filter()" autocomplete="off">
+        <simple-crud-filter-field *ngFor="let field of filters" [field]="field"></simple-crud-filter-field>
 
         <button mat-flat-button color="primary">Buscar</button>
       </form>

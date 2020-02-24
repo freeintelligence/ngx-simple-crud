@@ -3,23 +3,5 @@
 
   .filters {
     text-align: right;
-
-    * {
-      display: inline-block;
-    }
-    mat-form-field {
-      margin: 0 8px;
-      position: relative;
-    }
-
-    button {
-      margin-right: 8px;
-    }
-
-    .mat-datepicker-toggle-suffix {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
   }
 }

@@ -11,23 +11,15 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ResourceListComponent implements OnInit {
 
   @Input('header') header: Header = {};
-  
-  public filtersFormGroup: FormGroup = new FormGroup({});
   @Input('filters') filters: FilterField[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.setFiltersFormGroup();
-  }
-
-  setFiltersFormGroup() {
-    this.filtersFormGroup = new FormGroup({});
-    this.filters.forEach(filter => this.filtersFormGroup.addControl(filter.key, new FormControl(filter.value)));
   }
 
   async filter() {
-
+    console.log('filters', this.filters);
   }
 
   inputMask(field: any, event: any) {
