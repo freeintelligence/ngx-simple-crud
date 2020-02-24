@@ -4,7 +4,7 @@
     <mat-option *ngFor="let option of field?.typeSelect?.options" [value]="option.value">{{ option.description }}</mat-option>
   </mat-select>
 
-  <input *ngIf="field.type === 'input'" matInput [type]="field?.typeInput?.type" [placeholder]="field.placeholder" [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [style.width]="field.width">
+  <input *ngIf="field.type === 'input'" matInput [type]="field?.typeInput?.type" [placeholder]="field.placeholder" [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [style.width]="field.width" (keyup)="keyup(field)">
 
   <ng-container *ngIf="field.type === 'date'">
     <input matInput #date_input [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [matDatepicker]="date_picker" (focus)="date_picker.open()" [placeholder]="field.placeholder">

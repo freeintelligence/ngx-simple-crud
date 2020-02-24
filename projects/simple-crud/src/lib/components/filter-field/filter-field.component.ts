@@ -15,4 +15,13 @@ export class FilterFieldComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  keyup(field: FilterField) {
+    if (!field || typeof field.inputMask !== 'function') {
+      return;
+    }
+
+    const val = field.inputMask(field);
+    field.value = val;
+  }
+
 }
