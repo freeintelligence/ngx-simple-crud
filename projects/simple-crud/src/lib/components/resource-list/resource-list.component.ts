@@ -11,7 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ResourceListComponent implements OnInit {
 
   @Input('header') header: Header = {};
-  @Input('filters') filters: FilterField[] = [];
+  @Input('filterFields') filterFields: FilterField[] = [];
 
   constructor() { }
 
@@ -19,11 +19,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   async filter() {
-    console.log('filters', this.filters);
-  }
-
-  inputMask(field: any, event: any) {
-
+    console.log('filterFields', this.filterFields);
   }
 
 }
