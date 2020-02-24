@@ -1,0 +1,7 @@
+<button *ngIf="button?.text" [type]="button?.type ? button.type : 'button'" mat-flat-button [color]="button?.color" [matTooltip]="button?.toolTip">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+  {{ button?.text }}
+</button>
+<button *ngIf="!button?.text" [type]="button?.type ? button.type : 'button'" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+</button>

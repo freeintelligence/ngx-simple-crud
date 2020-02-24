@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Header } from '../../interfaces/header.interface';
 import { FilterField } from '../../interfaces/filter-field.interface';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FilterButton } from '../../interfaces/filter-button.interface';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -12,6 +12,7 @@ export class ResourceListComponent implements OnInit {
 
   @Input('header') header: Header = {};
   @Input('filterFields') filterFields: FilterField[] = [];
+  @Input('filterButtons') filterButtons: FilterButton[] = [];
 
   constructor() { }
 
@@ -19,7 +20,6 @@ export class ResourceListComponent implements OnInit {
   }
 
   async filter() {
-    console.log('filterFields', this.filterFields);
   }
 
 }
