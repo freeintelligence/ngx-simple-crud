@@ -4,6 +4,7 @@ export interface FilterField {
   type: 'select'|'input'|'date';
   placeholder?: string;
   value?: any;
+  params?: any;
   inputMask?: (field: FilterField) => any;
   valueMask?: (value: any) => any;
 
