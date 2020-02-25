@@ -52,10 +52,13 @@ export class DataTableComponent implements OnInit {
       });
     } catch (err) {
       this.error = err;
-      console.log('err', err);
     }
 
     this.loading = false;
+  }
+
+  print(column: InfoColumn, element: any) {
+    return column.method && typeof element[column.method] === 'function' ? element[column.method](element) : element[column.property];
   }
 
 }
