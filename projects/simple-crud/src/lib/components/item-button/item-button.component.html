@@ -1,1 +1,7 @@
-<p>item-button works!</p>
+<button *ngIf="button?.text && !hidden()" mat-button [color]="button?.color" [matTooltip]="button?.tooltip" [disabled]="disabled()" (click)="handle()">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+  {{ button?.text }}
+</button>
+<button *ngIf="!button?.text && !hidden()" mat-icon-button [color]="button?.color" [matTooltip]="button?.tooltip" [disabled]="disabled()" (click)="handle()">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+</button>
