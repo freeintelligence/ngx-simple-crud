@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ItemButtonComponent } from './components/item-button/item-button.component';
+import { ContentLoaderModule } from '@ngneat/content-loader';
 
 @NgModule({
   declarations: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent],
@@ -16,6 +17,7 @@ import { ItemButtonComponent } from './components/item-button/item-button.compon
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    ContentLoaderModule,
   ],
 })
 export class SimpleCrudModule { }

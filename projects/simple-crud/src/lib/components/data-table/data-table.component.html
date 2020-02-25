@@ -25,8 +25,16 @@
   <p>No hay resultados disponibles!</p>
   <button mat-flat-button type="button" color="primary" (click)="filter()">Reintentar</button>
 </div>
-<!--<div *ngIf="loading" class="spinner">
-  <mat-spinner diameter="48"></mat-spinner>
-</div>-->
+
+<div *ngIf="loading" class="content-loader">
+  <content-loader>
+    <svg:rect x="0" y="0" rx="3" ry="3" width="100%" height="10" />
+    <svg:rect x="0" y="20" rx="3" ry="3" width="100%" height="10" />
+    <svg:rect x="0" y="40" rx="3" ry="3" width="100%" height="10" />
+    <svg:rect x="0" y="60" rx="3" ry="3" width="100%" height="10" />
+    <svg:rect x="0" y="80" rx="3" ry="3" width="100%" height="10" />
+    <svg:rect x="0" y="100" rx="3" ry="3" width="100%" height="10" />
+  </content-loader>
+</div>
 
 <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="paginator?.total" [pageSize]="pageSize" (page)="filter($event.pageIndex + 1)"></mat-paginator>
