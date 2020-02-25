@@ -33,7 +33,7 @@ export class DataTableComponent implements OnInit {
   }
 
   async filter(pageIndex: number = 1) {
-    if (!this.service || typeof this.service.filter !== 'function') {
+    if (typeof this.service !== 'object' || typeof this.service.filter !== 'function') {
       return false;
     }
 
@@ -52,6 +52,7 @@ export class DataTableComponent implements OnInit {
       });
     } catch (err) {
       this.error = err;
+      console.log('err', err);
     }
 
     this.loading = false;

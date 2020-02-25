@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatTooltipModule,
     MatTableModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatCardModule,
@@ -28,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatTooltipModule,
     MatTableModule,
+    MatPaginatorModule,
   ]
 })
 export class MaterialModule {}

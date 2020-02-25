@@ -23,3 +23,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="paginator?.total" [pageSize]="pageSize" (page)="filter($event.pageIndex + 1)"></mat-paginator>
