@@ -5,7 +5,7 @@
         <mat-card-title>
           <span>{{ header?.title }}</span>
           <div class="header-buttons">
-            <button *ngFor="let button of header?.buttons" mat-stroked-button [color]="button?.color">{{ button?.text }}</button>
+            <simple-crud-header-button *ngFor="let button of header?.buttons" [button]="button"></simple-crud-header-button>
           </div>
         </mat-card-title>
       </mat-card-title-group>

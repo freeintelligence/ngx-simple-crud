@@ -1,0 +1,7 @@
+<button *ngIf="button?.text" type="button" mat-stroked-button [color]="button?.color" (click)="handle()">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+  {{ button?.text }}
+</button>
+<button *ngIf="!button?.text" type="button" mat-icon-button [color]="button?.color" (click)="handle()">
+  <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+</button>

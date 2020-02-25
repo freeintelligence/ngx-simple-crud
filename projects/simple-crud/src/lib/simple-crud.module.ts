@@ -8,10 +8,11 @@ import { FilterButtonComponent } from './components/filter-button/filter-button.
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ItemButtonComponent } from './components/item-button/item-button.component';
 import { ContentLoaderModule } from '@ngneat/content-loader';
+import { HeaderButtonComponent } from './components/header-button/header-button.component';
 
 @NgModule({
-  declarations: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent],
-  exports: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent],
+  declarations: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent, HeaderButtonComponent],
+  exports: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent, HeaderButtonComponent],
   imports: [
     CommonModule,
     MaterialModule,
