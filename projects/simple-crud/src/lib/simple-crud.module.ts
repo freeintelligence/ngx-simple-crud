@@ -6,10 +6,11 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { ItemButtonComponent } from './components/item-button/item-button.component';
 
 @NgModule({
-  declarations: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent],
-  exports: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent],
+  declarations: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent],
+  exports: [ResourceListComponent, FilterFieldComponent, FilterButtonComponent, DataTableComponent, ItemButtonComponent],
   imports: [
     CommonModule,
     MaterialModule,

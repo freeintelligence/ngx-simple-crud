@@ -17,3 +17,4 @@ export * from './lib/components/resource-list/resource-list.component';
 export * from './lib/components/filter-field/filter-field.component';
 export * from './lib/components/filter-button/filter-button.component';
 export * from './lib/components/data-table/data-table.component';
+export * from './lib/components/item-button/item-button.component';
