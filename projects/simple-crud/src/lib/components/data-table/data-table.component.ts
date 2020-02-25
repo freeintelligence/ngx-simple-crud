@@ -5,6 +5,7 @@ import { Utils } from '../../utils';
 import { Paginator } from '../../interfaces/paginator.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { InfoColumn } from '../../interfaces/info-column.interface';
+import { ItemButton } from '../../interfaces/item-button.interface';
 
 @Component({
   selector: 'simple-crud-data-table',
@@ -19,6 +20,7 @@ export class DataTableComponent implements OnInit {
   @Input('filterFields') filterFields: FilterField[];
   @Input('infoColumns') infoColumns: InfoColumn[];
   @Input('displayedColumns') displayedColumns: string[];
+  @Input('itemButtons') itemButtons: ItemButton[];
   @Input('pageSize') pageSize: number;
   @Input('pageSizeOptions') pageSizeOptions: number[];
 

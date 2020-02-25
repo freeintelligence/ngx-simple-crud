@@ -10,7 +10,7 @@
         <simple-crud-filter-button *ngFor="let button of filterButtons" [button]="button" [filterFields]="filterFields"></simple-crud-filter-button>
       </form>
 
-      <simple-crud-data-table [service]="service" [filterFields]="filterFields" [infoColumns]="infoColumns" [displayedColumns]="displayedColumns" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></simple-crud-data-table>
+      <simple-crud-data-table [service]="service" [filterFields]="filterFields" [infoColumns]="infoColumns" [displayedColumns]="displayedColumns" [itemButtons]="itemButtons" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></simple-crud-data-table>
     </mat-card-content>
   </mat-card>
 </div>
