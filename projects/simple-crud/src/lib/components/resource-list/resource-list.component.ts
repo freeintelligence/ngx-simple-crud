@@ -31,8 +31,4 @@ export class ResourceListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async filter() {
-    this.dataTable.filter();
-  }
-
 }
