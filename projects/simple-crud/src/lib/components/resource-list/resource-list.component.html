@@ -1,10 +1,10 @@
 <div class="container">
   <mat-card>
-    <mat-card-header *ngIf="header?.title">
+    <mat-card-header *ngIf="header?.title || header?.buttons?.length">
       <mat-card-title-group>
         <mat-card-title>
-          <span>{{ header?.title }}</span>
-          <div class="header-buttons">
+          <span *ngIf="header?.title">{{ header?.title }}</span>
+          <div *ngIf="header?.buttons?.length" class="header-buttons">
             <simple-crud-header-button *ngFor="let button of header?.buttons" [button]="button"></simple-crud-header-button>
           </div>
         </mat-card-title>
