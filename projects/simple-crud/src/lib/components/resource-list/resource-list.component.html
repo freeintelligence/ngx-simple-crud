@@ -1,7 +1,14 @@
 <div class="container">
   <mat-card>
     <mat-card-header *ngIf="header?.title">
-      <mat-card-title>{{ header?.title }}</mat-card-title>
+      <mat-card-title-group>
+        <mat-card-title>
+          <span>{{ header?.title }}</span>
+          <div class="header-buttons">
+            <button *ngFor="let button of header?.buttons" mat-stroked-button [color]="button?.color">{{ button?.text }}</button>
+          </div>
+        </mat-card-title>
+      </mat-card-title-group>
     </mat-card-header>
 
     <mat-card-content>
