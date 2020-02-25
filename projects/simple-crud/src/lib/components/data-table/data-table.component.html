@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="paginator?.data">
+
+  <ng-container *ngFor="let column of infoColumns" [matColumnDef]="column.property || column.method">
+    <th mat-header-cell *matHeaderCellDef> {{ column.title }} </th>
+    <td mat-cell *matCellDef="let element"> valor </td>
+  </ng-container>
+
+  <!--<ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element" class="actions">
+      <ng-container *ngFor="let button of buttons">
+        <button *ngIf="button?.text && !hidden(element, button)" mat-button [color]="button?.color" [matTooltip]="button?.toolTip" [disabled]="disabled(element, button)" (click)="handle(element, button)">
+          <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+          {{ button?.text }}
+        </button>
+        <button *ngIf="!button?.text && !hidden(element, button)" mat-icon-button [color]="button?.color" [matTooltip]="button?.toolTip" [disabled]="disabled(element, button)" (click)="handle(element, button)">
+          <mat-icon *ngIf="button?.icon">{{ button.icon }}</mat-icon>
+        </button>
+      </ng-container>
+    </td>
+  </ng-container>-->
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

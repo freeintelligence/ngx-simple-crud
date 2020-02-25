@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Header } from '../../interfaces/header.interface';
 import { FilterField } from '../../interfaces/filter-field.interface';
 import { FilterButton } from '../../interfaces/filter-button.interface';
 import { InfoColumn } from '../../interfaces/info-column.interface';
+import { Service } from '../../interfaces/service.interface';
+import { DataTableComponent } from '../data-table/data-table.component';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -11,11 +13,16 @@ import { InfoColumn } from '../../interfaces/info-column.interface';
 })
 export class ResourceListComponent implements OnInit {
 
+  @ViewChild(DataTableComponent, { static: true }) dataTable: DataTableComponent;
+
   @Input('header') header: Header = {};
   @Input('filterFields') filterFields: FilterField[] = [];
   @Input('filterButtons') filterButtons: FilterButton[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
+  @Input('pageSize') pageSize: number = 10;
+  @Input('pageSizeOptions') pageSizeOptions: number[] = [10, 20, 50, 100];
+  @Input('service') service: Service = {};
 
   constructor() { }
 
@@ -23,6 +30,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   async filter() {
+    this.dataTable.filter();
   }
 
 }

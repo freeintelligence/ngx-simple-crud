@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FilterButton } from '../../interfaces/filter-button.interface';
 import { FilterField } from '../../interfaces/filter-field.interface';
+import { Utils } from '../../utils';
 
 @Component({
   selector: 'simple-crud-filter-button',
@@ -19,7 +20,7 @@ export class FilterButtonComponent implements OnInit {
 
   disabled(): boolean {
     if (typeof this.button.disabled === 'function') {
-      return this.button.disabled(this.filterFieldsToObject());
+      return this.button.disabled(Utils.filterFieldsToObject(this.filterFields));
     }
 
     return false;
@@ -27,7 +28,7 @@ export class FilterButtonComponent implements OnInit {
 
   hidden(): boolean {
     if (typeof this.button.hidden === 'function') {
-      return this.button.hidden(this.filterFieldsToObject());
+      return this.button.hidden(Utils.filterFieldsToObject(this.filterFields));
     }
 
     return false;
@@ -35,18 +36,8 @@ export class FilterButtonComponent implements OnInit {
 
   handle(): any {
     if (typeof this.button.handle === 'function') {
-      return this.button.handle(this.filterFieldsToObject());
+      return this.button.handle(Utils.filterFieldsToObject(this.filterFields));
     }
-  }
-
-  filterFieldsToObject(): { [key: string]: FilterField } {
-    const obj = {};
-
-    if (this.filterFields instanceof Array) {
-      this.filterFields.forEach(filter => obj[filter.key] = filter);
-    }
-
-    return obj;
   }
 
 }
