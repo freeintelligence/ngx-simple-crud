@@ -10,7 +10,7 @@ import { ItemButton } from '../../interfaces/item-button.interface';
 @Component({
   selector: 'simple-crud-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css']
+  styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
 

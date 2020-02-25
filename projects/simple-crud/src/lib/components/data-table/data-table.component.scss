@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+
+.actions {
+  text-align: right !important;
+}
+
+.info-alert {
+  width: 100%;
+  padding: 32px;
+  text-align: center;
+  box-sizing: border-box;
+
+  p {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .8em;
+  }
+
+  mat-toolbar {
+    width: auto;
+    height: auto;
+    display: block;
+
+    span, button {
+      display: block;
+    }
+  }
+}

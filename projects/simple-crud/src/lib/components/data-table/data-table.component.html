@@ -16,4 +16,17 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
+<div *ngIf="!loading && error" class="info-alert">
+  <p color="warn">Tenemos problemas para obtener resultados. Intenta luego!</p>
+  <button mat-flat-button type="button" color="warn" (click)="filter()">Reintentar</button>
+</div>
+
+<div *ngIf="!loading && !error && !paginator?.data?.length" class="info-alert">
+  <p>No hay resultados disponibles!</p>
+  <button mat-flat-button type="button" color="primary" (click)="filter()">Reintentar</button>
+</div>
+<!--<div *ngIf="loading" class="spinner">
+  <mat-spinner diameter="48"></mat-spinner>
+</div>-->
+
 <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="paginator?.total" [pageSize]="pageSize" (page)="filter($event.pageIndex + 1)"></mat-paginator>
