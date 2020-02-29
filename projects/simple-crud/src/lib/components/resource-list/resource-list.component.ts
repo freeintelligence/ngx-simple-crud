@@ -3,7 +3,6 @@ import { Header } from '../../interfaces/header.interface';
 import { InfoColumn } from '../../interfaces/info-column.interface';
 import { Service } from '../../interfaces/service.interface';
 import { DataTableComponent } from '../data-table/data-table.component';
-import { ItemButton } from '../../interfaces/item-button.interface';
 import { Field, Button } from 'ngx-simple-forms';
 
 @Component({
@@ -20,7 +19,7 @@ export class ResourceListComponent implements OnInit {
   @Input('filterButtons') filterButtons: Button[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
-  @Input('itemButtons') itemButtons: ItemButton[] = [];
+  @Input('itemButtons') itemButtons: Button[] = [];
   @Input('pageSize') pageSize: number = 10;
   @Input('pageSizeOptions') pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input('service') service: Service = {};

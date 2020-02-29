@@ -8,7 +8,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element" class="actions">
-      <simple-crud-item-button *ngFor="let button of itemButtons" [button]="button" [element]="element"></simple-crud-item-button>
+      <simple-forms-button *ngFor="let button of itemButtons" [button]="button" [handleParams]="[ element ]"></simple-forms-button>
     </td>
   </ng-container>
 
