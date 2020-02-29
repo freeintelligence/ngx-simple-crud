@@ -1,6 +1,35 @@
 {
   "name": "ngx-simple-crud",
   "version": "9.0.0",
+  "description": "Create simple forms (dialogs and components) and alerts, among others..",
+  "author": {
+    "name": "freeintelligence",
+    "email": "free04381@gmail.com"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeintelligence/ngx-simple-crud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freeintelligence/ngx-simple-crud/issues"
+  },
+  "homepage": "https://github.com/freeintelligence/ngx-simple-crud#readme",
+  "keywords": [
+    "angular",
+    "angular9",
+    "ng",
+    "ngx",
+    "universal",
+    "simple",
+    "crud",
+    "list",
+    "create",
+    "read",
+    "update",
+    "delete",
+    "filters"
+  ],
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
@@ -8,6 +37,7 @@
     "@angular/forms": "~9.0.0",
     "@angular/router": "~9.0.0",
     "@ngneat/content-loader": "^4.1.0",
+    "ngx-simple-forms": "^9.0.0",
     "tslib": "^1.10.0"
   }
 }

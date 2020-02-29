@@ -29,6 +29,7 @@ export class ResourceListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('header', this.header);
   }
 
 }

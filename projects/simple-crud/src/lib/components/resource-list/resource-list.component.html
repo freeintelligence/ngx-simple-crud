@@ -5,7 +5,7 @@
         <mat-card-title>
           <span *ngIf="header?.title">{{ header?.title }}</span>
           <div *ngIf="header?.buttons?.length" class="header-buttons">
-            <simple-crud-header-button *ngFor="let button of header?.buttons" [button]="button"></simple-crud-header-button>
+            <simple-forms-button *ngFor="let button of header?.buttons" [button]="button" [handleParams]="[]"></simple-forms-button>
           </div>
         </mat-card-title>
       </mat-card-title-group>

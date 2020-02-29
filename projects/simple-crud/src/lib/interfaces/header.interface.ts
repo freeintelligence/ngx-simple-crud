@@ -1,6 +1,6 @@
-import { HeaderButton } from './header-button.interface';
+import { Button } from 'ngx-simple-forms';
 
 export interface Header {
   title?: string;
-  buttons?: HeaderButton[];
+  buttons?: Button[];
 }

@@ -18,4 +18,3 @@ export * from './lib/components/filter-field/filter-field.component';
 export * from './lib/components/filter-button/filter-button.component';
 export * from './lib/components/data-table/data-table.component';
 export * from './lib/components/item-button/item-button.component';
-export * from './lib/components/header-button/header-button.component';
