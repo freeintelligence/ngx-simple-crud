@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Header } from '../../interfaces/header.interface';
-import { FilterButton } from '../../interfaces/filter-button.interface';
 import { InfoColumn } from '../../interfaces/info-column.interface';
 import { Service } from '../../interfaces/service.interface';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { ItemButton } from '../../interfaces/item-button.interface';
-import { Field } from 'ngx-simple-forms';
+import { Field, Button } from 'ngx-simple-forms';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -18,7 +17,7 @@ export class ResourceListComponent implements OnInit {
 
   @Input('header') header: Header = {};
   @Input('filterFields') filterFields: Field[] = [];
-  @Input('filterButtons') filterButtons: FilterButton[] = [];
+  @Input('filterButtons') filterButtons: Button[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
   @Input('itemButtons') itemButtons: ItemButton[] = [];
