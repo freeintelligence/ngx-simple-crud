@@ -1,7 +1,7 @@
-import { FilterField } from './filter-field.interface';
+import { Field } from 'ngx-simple-forms';
 
 export interface FilterEvent {
   pageIndex: number;
   pageSize: number;
-  filterFields: { [key: string]: FilterField };
+  filterFields: { [key: string]: Field };
 }

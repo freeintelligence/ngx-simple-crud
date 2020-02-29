@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FilterButton } from '../../interfaces/filter-button.interface';
-import { FilterField } from '../../interfaces/filter-field.interface';
 import { Utils } from '../../utils';
+import { Field } from 'ngx-simple-forms';
 
 @Component({
   selector: 'simple-crud-filter-button',
@@ -11,7 +11,7 @@ import { Utils } from '../../utils';
 export class FilterButtonComponent implements OnInit {
 
   @Input('button') button: FilterButton;
-  @Input('filterFields') filterFields: FilterField[] = [];
+  @Input('filterFields') filterFields: Field[] = [];
 
   constructor() { }
 

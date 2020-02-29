@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Service } from '../../interfaces/service.interface';
-import { FilterField } from '../../interfaces/filter-field.interface';
 import { Utils } from '../../utils';
 import { Paginator } from '../../interfaces/paginator.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { InfoColumn } from '../../interfaces/info-column.interface';
 import { ItemButton } from '../../interfaces/item-button.interface';
+import { Field } from 'ngx-simple-forms';
 
 @Component({
   selector: 'simple-crud-data-table',
@@ -17,7 +17,7 @@ export class DataTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
 
   @Input('service') service: Service;
-  @Input('filterFields') filterFields: FilterField[];
+  @Input('filterFields') filterFields: Field[];
   @Input('infoColumns') infoColumns: InfoColumn[];
   @Input('displayedColumns') displayedColumns: string[];
   @Input('itemButtons') itemButtons: ItemButton[];

@@ -1,8 +1,8 @@
-import { FilterField } from './interfaces/filter-field.interface';
+import { Field } from 'ngx-simple-forms';
 
 export class Utils {
 
-  static filterFieldsToObject(filterFields: FilterField[]): { [key: string]: FilterField } {
+  static filterFieldsToObject(filterFields: Field[]): { [key: string]: Field } {
     const obj = {};
 
     if (filterFields instanceof Array) {
