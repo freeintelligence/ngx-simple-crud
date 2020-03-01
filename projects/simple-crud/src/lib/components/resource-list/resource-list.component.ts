@@ -4,6 +4,8 @@ import { InfoColumn } from '../../interfaces/info-column.interface';
 import { Service } from '../../interfaces/service.interface';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { Field, Button } from 'ngx-simple-forms';
+import { Utils } from '../../utils';
+import { FilterButton } from '../../interfaces/button.interface';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -16,7 +18,7 @@ export class ResourceListComponent implements OnInit {
 
   @Input('header') header: Header = {};
   @Input('filterFields') filterFields: Field[] = [];
-  @Input('filterButtons') filterButtons: Button[] = [];
+  @Input('filterButtons') filterButtons: FilterButton[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
   @Input('itemButtons') itemButtons: Button[] = [];
@@ -27,7 +29,10 @@ export class ResourceListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('header', this.header);
+  }
+
+  filterFieldsToObject() {
+    return Utils.filterFieldsToObject(this.filterFields);
   }
 
 }
