@@ -96,7 +96,8 @@ export class ResourceListComponent implements OnInit {
           message: this.hasCreate() && this.service.create.successMessage ? this.service.create.successMessage : 'Recurso guardado exitosamente!',
           buttons: [
             { text: 'Cerrar', color: 'primary', style: 'stroked', type: 'button', handle: () => dialog.close() },
-          ]
+          ],
+          handle: () => this.dataTable.filter(),
         },
         error: {
           message: this.hasCreate() && this.service.create.errorMessage ? this.service.create.errorMessage : 'Tenemos problemas para conectarnos a nuestros servidores. Intenta luego!'
