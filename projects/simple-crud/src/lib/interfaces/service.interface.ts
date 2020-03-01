@@ -1,9 +1,10 @@
 import { Paginator } from './paginator.interface';
 import { FilterField } from './field.interface';
+import { FormGroup } from '@angular/forms';
 
 export interface Service {
   list?: ServiceOperationList;
-  create?: ServiceOperation;
+  create?: ServiceOperationCreate;
   read?: ServiceOperation;
   update?: ServiceOperation;
   delete?: ServiceOperation;
@@ -17,4 +18,13 @@ export interface ServiceOperation {
 
 export interface ServiceOperationList extends ServiceOperation {
   handle?: (pageIndex: number, pageSize: number, filters: { [key: string]: FilterField }) => Promise<Paginator>;
+}
+
+export interface ServiceOperationCreate extends ServiceOperation {
+  title?: string;
+  color?: 'warn'|'primary'|'accent',
+  description?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  handle?: (form: FormGroup) => any;
 }
