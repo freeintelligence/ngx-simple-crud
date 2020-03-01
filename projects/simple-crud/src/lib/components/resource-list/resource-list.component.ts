@@ -46,12 +46,6 @@ export class ResourceListComponent implements OnInit {
     ((typeof this.service.create.url === 'string' && Boolean(this.service.create.url.length)) || typeof this.service.create.handle === 'function');
   }
 
-  hasRead(): boolean {
-    return typeof this.service === 'object' && this.service !== null &&
-    typeof this.service.read === 'object' && this.service.read !== null &&
-    ((typeof this.service.read.url === 'string' && Boolean(this.service.read.url.length)) || typeof this.service.read.handle === 'function');
-  }
-
   hasUpdate(): boolean {
     return typeof this.service === 'object' && this.service !== null &&
     typeof this.service.update === 'object' && this.service.update !== null &&

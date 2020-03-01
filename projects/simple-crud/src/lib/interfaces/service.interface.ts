@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
 export interface Service {
   list?: ServiceOperationList;
   create?: ServiceOperationCreate;
-  read?: ServiceOperation;
   update?: ServiceOperation;
   delete?: ServiceOperation;
 }
