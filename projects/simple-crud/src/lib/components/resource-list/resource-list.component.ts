@@ -37,28 +37,52 @@ export class ResourceListComponent implements OnInit {
   hasList(): boolean {
     return typeof this.service === 'object' && this.service !== null &&
     typeof this.service.list === 'object' && this.service.list !== null &&
-    ((typeof this.service.list.url === 'string' && Boolean(this.service.list.url.length)) || typeof this.service.list.handle === 'function');
+    (
+      (
+        (typeof this.service.list.url === 'string' && Boolean((this.service.list.url as string).length)) ||
+        (typeof this.service.list.url === 'function' && Boolean(this.service.list.url()))
+      ) ||
+      typeof this.service.list.handle === 'function'
+    );
   }
 
   hasCreate(): boolean {
     return typeof this.service === 'object' && this.service !== null &&
     typeof this.service.create === 'object' && this.service.create !== null &&
-    ((typeof this.service.create.url === 'string' && Boolean(this.service.create.url.length)) || typeof this.service.create.handle === 'function');
+    (
+      (
+        (typeof this.service.create.url === 'string' && Boolean((this.service.create.url as string).length)) ||
+        (typeof this.service.create.url === 'function' && Boolean(this.service.create.url()))
+      ) ||
+      typeof this.service.create.handle === 'function'
+    );
   }
 
   hasUpdate(): boolean {
     return typeof this.service === 'object' && this.service !== null &&
     typeof this.service.update === 'object' && this.service.update !== null &&
-    ((typeof this.service.update.url === 'string' && Boolean(this.service.update.url.length)) || typeof this.service.update.handle === 'function');
+    (
+      (
+        (typeof this.service.update.url === 'string' && Boolean((this.service.update.url as string).length)) ||
+        (typeof this.service.update.url === 'function' && Boolean(this.service.update.url({})))
+      ) ||
+      typeof this.service.update.handle === 'function'
+    );
   }
 
   hasDelete(): boolean {
     return typeof this.service === 'object' && this.service !== null &&
     typeof this.service.delete === 'object' && this.service.delete !== null &&
-    ((typeof this.service.delete.url === 'string' && Boolean(this.service.delete.url.length)) || typeof this.service.delete.handle === 'function');
+    (
+      (
+        (typeof this.service.delete.url === 'string' && Boolean((this.service.delete.url as string).length)) ||
+        (typeof this.service.delete.url === 'function' && Boolean(this.service.delete.url()))
+      ) ||
+      typeof this.service.delete.handle === 'function'
+    );
   }
 
-  openCreate() { 
+  openCreate() {
     const dialog = this.simpleFormsService.createDialogForm({
       header: {
         title: this.hasCreate() && this.service.create.title ? this.service.create.title : 'Crear recurso',
@@ -84,7 +108,10 @@ export class ResourceListComponent implements OnInit {
         },
       ],
       submit: {
-        url: this.hasCreate() && this.service.create.url ? this.service.create.url : null,
+        url: (
+          this.hasCreate() && typeof this.service.create.url === 'string' ? this.service.create.url :
+          this.hasCreate() && typeof this.service.create.url === 'function' ? this.service.create.url() : null
+        ),
         method: this.hasCreate() && this.service.create.method ? this.service.create.method : null,
         success: {
           message: this.hasCreate() && this.service.create.successMessage ? this.service.create.successMessage : 'Recurso guardado exitosamente!',
@@ -95,6 +122,51 @@ export class ResourceListComponent implements OnInit {
         },
         error: {
           message: this.hasCreate() && this.service.create.errorMessage ? this.service.create.errorMessage : 'Tenemos problemas para conectarnos a nuestros servidores. Intenta luego!'
+        },
+      }
+    });
+  }
+
+  openUpdate(element: any) {
+    const dialog = this.simpleFormsService.createDialogForm({
+      header: {
+        title: this.hasUpdate() && this.service.update.title ? this.service.update.title : 'Actualizar recurso',
+        color: this.hasUpdate() && this.service.update.color ? this.service.update.color : 'primary',
+      },
+      message: this.hasUpdate() && this.service.update.description ? this.service.update.description : 'Rellena todos los <strong>campos requeridos</strong> antes de enviar el formulario!',
+      fields: this.controls,
+      buttons: [
+        {
+          text: 'Cerrar',
+          icon: 'close',
+          iconLeft: true,
+          type: 'button',
+          handle: () => dialog.close()
+        },
+        {
+          color: 'primary',
+          text: 'Actualizar',
+          icon: 'save',
+          handle: this.hasUpdate() && typeof this.service.update.handle === 'function' ? async (form: FormGroup) => {
+            return await this.service.update.handle(element, form);
+          } : null,
+        },
+      ],
+      submit: {
+        url: (
+          this.hasUpdate() && typeof this.service.update.url === 'string' ? this.service.update.url :
+          this.hasUpdate() && typeof this.service.update.url === 'function' ? this.service.update.url(element) : null
+        ),
+        method: this.hasUpdate() && this.service.update.method ? this.service.update.method : null,
+        success: {
+          message: this.hasUpdate() && this.service.update.successMessage ? this.service.update.successMessage : 'Recurso actualizado exitosamente!',
+          buttons: [
+            { text: 'Cerrar', color: 'primary', style: 'stroked', type: 'button', handle: () => dialog.close() },
+          ],
+          handle: () => this.dataTable.filter(),
+        },
+        error: {
+          message: this.hasUpdate() && this.service.update.errorMessage ? this.service.update.errorMessage : 'Tenemos problemas para conectarnos a nuestros servidores. Intenta luego!'
         },
       }
     });

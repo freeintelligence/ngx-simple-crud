@@ -2,15 +2,17 @@ import { Paginator } from './paginator.interface';
 import { FilterField } from './field.interface';
 import { FormGroup } from '@angular/forms';
 
+type PropertyFunction<T> = (...args: any[]) => T;
+
 export interface Service {
   list?: ServiceOperationList;
   create?: ServiceOperationCreate;
-  update?: ServiceOperation;
+  update?: ServiceOperationUpdate;
   delete?: ServiceOperation;
 }
 
 export interface ServiceOperation {
-  url?: string;
+  url?: PropertyFunction<string> | string;
   method?: 'post'|'POST'|'get'|'GET'|'patch'|'PATCH'|'put'|'PUT'|'delete'|'DELETE';
   handle?: (...params: any[]) => any;
 }
@@ -26,4 +28,14 @@ export interface ServiceOperationCreate extends ServiceOperation {
   successMessage?: string;
   errorMessage?: string;
   handle?: (form: FormGroup) => any;
+}
+
+export interface ServiceOperationUpdate extends ServiceOperation {
+  url?: (element: any) => string;
+  title?: string;
+  color?: 'warn'|'primary'|'accent',
+  description?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  handle?: (element: any, form: FormGroup) => any;
 }
