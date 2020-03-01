@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ContentLoaderModule } from '@ngneat/content-loader';
 import { SimpleFormsModule } from 'ngx-simple-forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [ResourceListComponent, DataTableComponent],
@@ -14,6 +15,7 @@ import { SimpleFormsModule } from 'ngx-simple-forms';
     CommonModule,
     MaterialModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     ContentLoaderModule,
     SimpleFormsModule,

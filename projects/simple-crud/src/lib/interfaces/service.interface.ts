@@ -1,6 +1,20 @@
 import { Paginator } from './paginator.interface';
-import { FilterEvent } from './filter-event.interface';
+import { FilterField } from './field.interface';
 
 export interface Service {
-  filter?: (event: FilterEvent) => Promise<Paginator>;
+  list?: ServiceOperationList;
+  create?: ServiceOperation;
+  read?: ServiceOperation;
+  update?: ServiceOperation;
+  delete?: ServiceOperation;
+}
+
+export interface ServiceOperation {
+  url?: string;
+  method?: 'post'|'POST'|'get'|'GET'|'patch'|'PATCH'|'put'|'PUT'|'delete'|'DELETE';
+  handle?: (...params: any[]) => any;
+}
+
+export interface ServiceOperationList extends ServiceOperation {
+  handle?: (pageIndex: number, pageSize: number, filters: { [key: string]: FilterField }) => Promise<Paginator>;
 }

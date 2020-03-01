@@ -4,8 +4,9 @@ import { Utils } from '../../utils';
 import { Paginator } from '../../interfaces/paginator.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { InfoColumn } from '../../interfaces/info-column.interface';
-import { Field } from 'ngx-simple-forms';
 import { ItemButton } from '../../interfaces/button.interface';
+import { FilterField } from '../../interfaces/field.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'simple-crud-data-table',
@@ -17,7 +18,7 @@ export class DataTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
 
   @Input('service') service: Service;
-  @Input('filterFields') filterFields: Field[];
+  @Input('filterFields') filterFields: FilterField[];
   @Input('infoColumns') infoColumns: InfoColumn[];
   @Input('displayedColumns') displayedColumns: string[];
   @Input('itemButtons') itemButtons: ItemButton[];
@@ -28,14 +29,14 @@ export class DataTableComponent implements OnInit {
   loading: boolean;
   error: any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.filter();
   }
 
   async filter(pageIndex: number = 1) {
-    if (typeof this.service !== 'object' || typeof this.service.filter !== 'function') {
+    if (typeof this.service !== 'object' || this.service === null || typeof this.service.list !== 'object' || this.service.list === null) {
       return false;
     }
 
@@ -47,11 +48,33 @@ export class DataTableComponent implements OnInit {
     }
 
     try {
-      this.paginator = await this.service.filter({
-        pageIndex,
-        pageSize: this.matPaginator.pageSize || this.pageSize,
-        filterFields: Utils.filterFieldsToObject(this.filterFields),
-      });
+      if (typeof this.service.list.handle === 'function') {
+        this.paginator = await this.service.list.handle(pageIndex, this.matPaginator.pageSize || this.pageSize, Utils.filterFieldsToObject(this.filterFields));
+      } else if (typeof this.service.list.url === 'string') {
+        switch (typeof this.service.list.method === 'string' && this.service.list.method.length ? this.service.list.method.toUpperCase() : 'GET') {
+          case 'GET': {
+            this.paginator = await this.http.get(this.service.list.url, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+            break;
+          }
+          case 'PATCH': {
+            this.paginator = await this.http.patch(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            break;
+          }
+          case 'PUT': {
+            this.paginator = await this.http.put(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            break;
+          }
+          case 'DELETE': {
+            this.paginator = await this.http.delete(this.service.list.url, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+            break;
+          }
+          case 'POST':
+          default: {
+            this.paginator = await this.http.post(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            break;
+          }
+        }
+      }
     } catch (err) {
       this.error = err;
     }
