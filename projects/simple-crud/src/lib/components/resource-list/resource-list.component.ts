@@ -3,9 +3,10 @@ import { Header } from '../../interfaces/header.interface';
 import { InfoColumn } from '../../interfaces/info-column.interface';
 import { Service } from '../../interfaces/service.interface';
 import { DataTableComponent } from '../data-table/data-table.component';
-import { Field, Button } from 'ngx-simple-forms';
+import { Button } from 'ngx-simple-forms';
 import { Utils } from '../../utils';
 import { FilterButton } from '../../interfaces/button.interface';
+import { FilterField } from '../../interfaces/field.interface';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -17,7 +18,7 @@ export class ResourceListComponent implements OnInit {
   @ViewChild(DataTableComponent, { static: true }) dataTable: DataTableComponent;
 
   @Input('header') header: Header = {};
-  @Input('filterFields') filterFields: Field[] = [];
+  @Input('filterFields') filterFields: FilterField[] = [];
   @Input('filterButtons') filterButtons: FilterButton[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
