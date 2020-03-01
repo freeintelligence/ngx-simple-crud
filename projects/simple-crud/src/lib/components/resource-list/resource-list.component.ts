@@ -3,9 +3,8 @@ import { Header } from '../../interfaces/header.interface';
 import { InfoColumn } from '../../interfaces/info-column.interface';
 import { Service } from '../../interfaces/service.interface';
 import { DataTableComponent } from '../data-table/data-table.component';
-import { Button } from 'ngx-simple-forms';
 import { Utils } from '../../utils';
-import { FilterButton } from '../../interfaces/button.interface';
+import { FilterButton, ItemButton } from '../../interfaces/button.interface';
 import { FilterField } from '../../interfaces/field.interface';
 
 @Component({
@@ -22,7 +21,7 @@ export class ResourceListComponent implements OnInit {
   @Input('filterButtons') filterButtons: FilterButton[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];
-  @Input('itemButtons') itemButtons: Button[] = [];
+  @Input('itemButtons') itemButtons: ItemButton[] = [];
   @Input('pageSize') pageSize: number = 10;
   @Input('pageSizeOptions') pageSizeOptions: number[] = [10, 20, 50, 100];
   @Input('service') service: Service = {};

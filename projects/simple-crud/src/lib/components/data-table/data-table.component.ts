@@ -4,7 +4,8 @@ import { Utils } from '../../utils';
 import { Paginator } from '../../interfaces/paginator.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { InfoColumn } from '../../interfaces/info-column.interface';
-import { Field, Button } from 'ngx-simple-forms';
+import { Field } from 'ngx-simple-forms';
+import { ItemButton } from '../../interfaces/button.interface';
 
 @Component({
   selector: 'simple-crud-data-table',
@@ -19,7 +20,7 @@ export class DataTableComponent implements OnInit {
   @Input('filterFields') filterFields: Field[];
   @Input('infoColumns') infoColumns: InfoColumn[];
   @Input('displayedColumns') displayedColumns: string[];
-  @Input('itemButtons') itemButtons: Button[];
+  @Input('itemButtons') itemButtons: ItemButton[];
   @Input('pageSize') pageSize: number;
   @Input('pageSizeOptions') pageSizeOptions: number[];
 
