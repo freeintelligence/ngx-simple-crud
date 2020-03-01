@@ -76,7 +76,7 @@ export class ResourceListComponent implements OnInit {
     (
       (
         (typeof this.service.delete.url === 'string' && Boolean((this.service.delete.url as string).length)) ||
-        (typeof this.service.delete.url === 'function' && Boolean(this.service.delete.url()))
+        (typeof this.service.delete.url === 'function' && Boolean(this.service.delete.url({})))
       ) ||
       typeof this.service.delete.handle === 'function'
     );
@@ -167,6 +167,51 @@ export class ResourceListComponent implements OnInit {
         },
         error: {
           message: this.hasUpdate() && this.service.update.errorMessage ? this.service.update.errorMessage : 'Tenemos problemas para conectarnos a nuestros servidores. Intenta luego!'
+        },
+      }
+    });
+  }
+
+  openDelete(element: any) {
+    const dialog = this.simpleFormsService.createDialogForm({
+      header: {
+        title: this.hasDelete() && this.service.delete.title ? this.service.delete.title : 'Eliminar recurso',
+        color: this.hasDelete() && this.service.delete.color ? this.service.delete.color : 'primary',
+      },
+      message: this.hasDelete() && this.service.delete.description ? this.service.delete.description : '¿Estás seguro/a de <strong>eliminar</strong> el recurso seleccionado? <strong>Esta acción no se puede deshacer.</strong>',
+      fields: [],
+      buttons: [
+        {
+          text: 'Cerrar',
+          icon: 'close',
+          iconLeft: true,
+          type: 'button',
+          handle: () => dialog.close()
+        },
+        {
+          color: 'warn',
+          text: 'Confirmar eliminación',
+          icon: 'delete',
+          handle: this.hasDelete() && typeof this.service.delete.handle === 'function' ? async (form: FormGroup) => {
+            return await this.service.delete.handle(element);
+          } : null,
+        },
+      ],
+      submit: {
+        url: (
+          this.hasDelete() && typeof this.service.delete.url === 'string' ? this.service.delete.url :
+          this.hasDelete() && typeof this.service.delete.url === 'function' ? this.service.delete.url(element) : null
+        ),
+        method: this.hasDelete() && this.service.delete.method ? this.service.delete.method : null,
+        success: {
+          message: this.hasDelete() && this.service.delete.successMessage ? this.service.delete.successMessage : 'Recurso eliminado exitosamente!',
+          buttons: [
+            { text: 'Cerrar', color: 'warn', style: 'stroked', type: 'button', handle: () => dialog.close() },
+          ],
+          handle: () => this.dataTable.filter(),
+        },
+        error: {
+          message: this.hasDelete() && this.service.delete.errorMessage ? this.service.delete.errorMessage : 'Tenemos problemas para conectarnos a nuestros servidores. Intenta luego!'
         },
       }
     });

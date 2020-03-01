@@ -8,7 +8,7 @@ export interface Service {
   list?: ServiceOperationList;
   create?: ServiceOperationCreate;
   update?: ServiceOperationUpdate;
-  delete?: ServiceOperation;
+  delete?: ServiceOperationDelete;
 }
 
 export interface ServiceOperation {
@@ -38,4 +38,14 @@ export interface ServiceOperationUpdate extends ServiceOperation {
   successMessage?: string;
   errorMessage?: string;
   handle?: (element: any, form: FormGroup) => any;
+}
+
+export interface ServiceOperationDelete extends ServiceOperation {
+  url?: (element: any) => string;
+  title?: string;
+  color?: 'warn'|'primary'|'accent',
+  description?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  handle?: (element: any) => any;
 }
