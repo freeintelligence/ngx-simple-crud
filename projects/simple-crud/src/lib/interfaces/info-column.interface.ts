@@ -1,5 +1,5 @@
 export interface InfoColumn {
   title: string;
   property?: string;
-  method?: string;
+  method?: (element: any) => any;
 }

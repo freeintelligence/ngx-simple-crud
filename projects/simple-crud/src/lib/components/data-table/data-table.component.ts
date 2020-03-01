@@ -83,7 +83,13 @@ export class DataTableComponent implements OnInit {
   }
 
   print(column: InfoColumn, element: any) {
-    return column.method && typeof element[column.method] === 'function' ? element[column.method](element) : element[column.property];
+    if (typeof column.method === 'function') {
+      return column.method(element);
+    } else if (typeof element[column.property] === 'function') {
+      return element[column.property](element);
+    }
+
+    return element[column.property];
   }
 
 }
