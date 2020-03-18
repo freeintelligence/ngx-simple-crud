@@ -1,6 +1,6 @@
 {
   "name": "ngx-simple-crud",
-  "version": "9.0.0",
+  "version": "9.1.0",
   "description": "Create simple forms (dialogs and components) and alerts, among others..",
   "author": {
     "name": "freeintelligence",
@@ -37,7 +37,8 @@
     "@angular/forms": "~9.0.0",
     "@angular/router": "~9.0.0",
     "@ngneat/content-loader": "^4.1.0",
-    "ngx-simple-forms": "^9.0.0",
+    "ngx-simple-forms": "^9.3.1",
+    "ngx-material-file-input": "^2.1.1",
     "tslib": "^1.10.0"
   }
 }

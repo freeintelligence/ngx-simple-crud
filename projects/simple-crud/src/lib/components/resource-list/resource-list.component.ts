@@ -90,6 +90,7 @@ export class ResourceListComponent implements OnInit {
       },
       message: this.hasCreate() && this.service.create.description ? this.service.create.description : 'Rellena todos los <strong>campos requeridos</strong> antes de enviar el formulario!',
       fields: this.controls,
+      fieldHiddenParams: [ 'create' ],
       buttons: [
         {
           text: 'Cerrar',
@@ -135,6 +136,8 @@ export class ResourceListComponent implements OnInit {
       },
       message: this.hasUpdate() && this.service.update.description ? this.service.update.description : 'Rellena todos los <strong>campos requeridos</strong> antes de enviar el formulario!',
       fields: this.controls,
+      fieldHiddenParams: [ 'update', element ],
+      model: element,
       buttons: [
         {
           text: 'Cerrar',
@@ -180,6 +183,7 @@ export class ResourceListComponent implements OnInit {
       },
       message: this.hasDelete() && this.service.delete.description ? this.service.delete.description : '¿Estás seguro/a de <strong>eliminar</strong> el recurso seleccionado? <strong>Esta acción no se puede deshacer.</strong>',
       fields: [],
+      fieldHiddenParams: [ 'delete', element ],
       buttons: [
         {
           text: 'Cerrar',
