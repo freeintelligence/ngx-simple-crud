@@ -37,4 +37,4 @@
   </content-loader>
 </div>
 
-<mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="paginator?.total" [pageSize]="pageSize" (page)="filter($event.pageIndex + 1)"></mat-paginator>
+<mat-paginator [disabled]="!paginator?.total" [pageSizeOptions]="pageSizeOptions" [length]="paginator?.total || paginator?.data?.length" [pageSize]="pageSize" (page)="filter($event.pageIndex + 1)"></mat-paginator>
