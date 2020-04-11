@@ -23,7 +23,7 @@
     "@angular/router": "~9.0.0",
     "@ngneat/content-loader": "^4.1.0",
     "ngx-material-file-input": "^2.1.1",
-    "ngx-simple-forms": "^9.3.2",
+    "ngx-simple-forms": "^9.3.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
