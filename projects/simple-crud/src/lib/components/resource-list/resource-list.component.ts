@@ -19,7 +19,7 @@ export class ResourceListComponent implements OnInit {
   @ViewChild(DataTableComponent, { static: true }) dataTable: DataTableComponent;
 
   @Input('header') header: Header = {};
-  @Input('filterFields') filterFields: FilterField[] = [];
+  @Input('filterFields') filterFields: FilterField[] | { [key: string]: FilterField } = [];
   @Input('filterButtons') filterButtons: FilterButton[] = [];
   @Input('infoColumns') infoColumns: InfoColumn[] = [];
   @Input('displayedColumns') displayedColumns: string[] = [];

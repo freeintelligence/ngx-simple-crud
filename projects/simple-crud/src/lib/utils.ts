@@ -2,27 +2,31 @@ import { FilterField } from './interfaces/field.interface';
 
 export class Utils {
 
-  static filterFieldsToObject(filterFields: FilterField[]): { [key: string]: FilterField } {
-    const obj = {};
+  static filterFieldsToObject(filterFields: FilterField[] | { [key: string]: FilterField}): { [key: string]: FilterField } {
+    let obj = {};
 
     if (filterFields instanceof Array) {
       filterFields.forEach(filter => obj[filter.key] = filter);
+    } else if (typeof filterFields === 'object' && filterFields !== null) {
+      obj = filterFields;
     }
 
     return obj;
   }
 
-  static filterFieldsToValues(filterFields: FilterField[]): { [key: string]: string } {
+  static filterFieldsToValues(filterFields: FilterField[] | { [key: string]: FilterField}): { [key: string]: string } {
     const obj = {};
 
-    if (filterFields instanceof Array) {
-      filterFields.forEach(filter => {
+    if (typeof filterFields === 'object' && filterFields !== null) {
+      for (const key in filterFields) {
+        const filter: FilterField = filterFields[key];
+
         if (typeof filter.value === 'undefined' || filter.value === null) {
-          return;
+          continue;
         }
 
-        obj[filter.key] = filter.value
-      });
+        obj[filter.key] = filter.value;
+      }
     }
 
     return obj;
