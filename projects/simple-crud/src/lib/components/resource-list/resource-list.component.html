@@ -13,7 +13,7 @@
 
     <mat-card-content>
       <form class="filters" (ngSubmit)="dataTable.filter()" autocomplete="off">
-        <simple-forms-field *ngFor="let field of filterFields | keyvalue" [(ngModel)]="field.value.value" [ngModelOptions]="{ standalone: true }" [field]="field.value" class="form-field"></simple-forms-field>
+        <simple-forms-field *ngFor="let field of filterFields | keyvalue: originalOrder" [(ngModel)]="field.value.value" [ngModelOptions]="{ standalone: true }" [field]="field.value" class="form-field"></simple-forms-field>
         <simple-forms-button *ngFor="let button of filterButtons" [button]="button" [handleParams]="[ filterFieldsToObject() ]"></simple-forms-button>
       </form>
 

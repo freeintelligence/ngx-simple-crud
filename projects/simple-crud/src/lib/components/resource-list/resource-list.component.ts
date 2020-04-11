@@ -8,6 +8,7 @@ import { FilterButton, ItemButton } from '../../interfaces/button.interface';
 import { FilterField } from '../../interfaces/field.interface';
 import { Field, SimpleFormsService } from 'ngx-simple-forms';
 import { FormGroup } from '@angular/forms';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'simple-crud-resource-list',
@@ -223,6 +224,10 @@ export class ResourceListComponent implements OnInit {
 
   filterFieldsToObject() {
     return Utils.filterFieldsToObject(this.filterFields);
+  }
+
+  originalOrder(a: any, b: any): number {
+    return 0;
   }
 
 }
