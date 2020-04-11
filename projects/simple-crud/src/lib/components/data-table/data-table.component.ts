@@ -50,27 +50,29 @@ export class DataTableComponent implements OnInit {
     try {
       if (typeof this.service.list.handle === 'function') {
         this.paginator = await this.service.list.handle(pageIndex, this.matPaginator.pageSize || this.pageSize, Utils.filterFieldsToObject(this.filterFields));
-      } else if (typeof this.service.list.url === 'string') {
+      } else if (typeof this.service.list.url === 'string' || typeof this.service.list.url === 'function') {
+        const realUrl = typeof this.service.list.url === 'string' ? this.service.list.url : (typeof this.service.list.url === 'function' ? this.service.list.url() : null);
+
         switch (typeof this.service.list.method === 'string' && this.service.list.method.length ? this.service.list.method.toUpperCase() : 'GET') {
           case 'GET': {
-            this.paginator = await this.http.get(this.service.list.url, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+            this.paginator = await this.http.get(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
             break;
           }
           case 'PATCH': {
-            this.paginator = await this.http.patch(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            this.paginator = await this.http.patch(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
             break;
           }
           case 'PUT': {
-            this.paginator = await this.http.put(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            this.paginator = await this.http.put(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
             break;
           }
           case 'DELETE': {
-            this.paginator = await this.http.delete(this.service.list.url, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+            this.paginator = await this.http.delete(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
             break;
           }
           case 'POST':
           default: {
-            this.paginator = await this.http.post(this.service.list.url, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+            this.paginator = await this.http.post(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
             break;
           }
         }
