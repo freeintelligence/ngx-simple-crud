@@ -1,47 +1,39 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simple-crud": {
+    "ngx-simple-crud": {
       "projectType": "library",
-      "root": "projects/simple-crud",
-      "sourceRoot": "projects/simple-crud/src",
-      "prefix": "simple-crud",
+      "root": "projects/ngx-simple-crud",
+      "sourceRoot": "projects/ngx-simple-crud/src",
+      "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/simple-crud/tsconfig.lib.json",
-            "project": "projects/simple-crud/ng-package.json"
+            "project": "projects/ngx-simple-crud/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/simple-crud/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-simple-crud/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-simple-crud/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/simple-crud/src/test.ts",
-            "tsConfig": "projects/simple-crud/tsconfig.spec.json",
-            "karmaConfig": "projects/simple-crud/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/simple-crud/tsconfig.lib.json",
-              "projects/simple-crud/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "main": "projects/ngx-simple-crud/src/test.ts",
+            "tsConfig": "projects/ngx-simple-crud/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-simple-crud/karma.conf.js"
           }
         }
       }
-    }},
-  "defaultProject": "simple-crud"
+    }
+  },
+  "defaultProject": "ngx-simple-crud"
 }

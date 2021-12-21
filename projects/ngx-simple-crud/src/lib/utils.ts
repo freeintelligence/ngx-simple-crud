@@ -6,7 +6,7 @@ export class Utils {
     let obj = {};
 
     if (filterFields instanceof Array) {
-      filterFields.forEach(filter => obj[filter.key] = filter);
+      filterFields.forEach(filter => (obj as any)[filter.key] = filter);
     } else if (typeof filterFields === 'object' && filterFields !== null) {
       obj = filterFields;
     }
@@ -19,13 +19,13 @@ export class Utils {
 
     if (typeof filterFields === 'object' && filterFields !== null) {
       for (const key in filterFields) {
-        const filter: FilterField = filterFields[key];
+        const filter: FilterField = (filterFields as any)[key];
 
         if (typeof filter.value === 'undefined' || filter.value === null) {
           continue;
         }
 
-        obj[filter.key] = filter.value;
+        (obj as any)[filter.key] = filter.value;
       }
     }
 

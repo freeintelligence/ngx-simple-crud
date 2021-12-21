@@ -15,18 +15,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataTableComponent implements OnInit {
 
-  @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) matPaginator!: MatPaginator;
 
-  @Input('service') service: Service;
-  @Input('filterFields') filterFields: FilterField[];
-  @Input('infoColumns') infoColumns: InfoColumn[];
-  @Input('displayedColumns') displayedColumns: string[];
-  @Input('itemButtons') itemButtons: ItemButton[];
-  @Input('pageSize') pageSize: number;
-  @Input('pageSizeOptions') pageSizeOptions: number[];
+  @Input('service') service!: Service;
+  @Input('filterFields') filterFields!: FilterField[];
+  @Input('infoColumns') infoColumns!: InfoColumn[];
+  @Input('displayedColumns') displayedColumns!: string[];
+  @Input('itemButtons') itemButtons!: ItemButton[];
+  @Input('pageSize') pageSize!: number;
+  @Input('pageSizeOptions') pageSizeOptions!: number[];
 
-  paginator: Paginator;
-  loading: boolean;
+  paginator!: Paginator;
+  loading!: boolean;
   error: any;
 
   constructor(private http: HttpClient) { }
@@ -53,27 +53,29 @@ export class DataTableComponent implements OnInit {
       } else if (typeof this.service.list.url === 'string' || typeof this.service.list.url === 'function') {
         const realUrl = typeof this.service.list.url === 'string' ? this.service.list.url : (typeof this.service.list.url === 'function' ? this.service.list.url() : null);
 
-        switch (typeof this.service.list.method === 'string' && this.service.list.method.length ? this.service.list.method.toUpperCase() : 'GET') {
-          case 'GET': {
-            this.paginator = await this.http.get(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
-            break;
-          }
-          case 'PATCH': {
-            this.paginator = await this.http.patch(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
-            break;
-          }
-          case 'PUT': {
-            this.paginator = await this.http.put(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
-            break;
-          }
-          case 'DELETE': {
-            this.paginator = await this.http.delete(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
-            break;
-          }
-          case 'POST':
-          default: {
-            this.paginator = await this.http.post(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
-            break;
+        if (realUrl) {
+          switch (typeof this.service.list.method === 'string' && this.service.list.method.length ? this.service.list.method.toUpperCase() : 'GET') {
+            case 'GET': {
+              this.paginator = await this.http.get(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+              break;
+            }
+            case 'PATCH': {
+              this.paginator = await this.http.patch(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+              break;
+            }
+            case 'PUT': {
+              this.paginator = await this.http.put(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+              break;
+            }
+            case 'DELETE': {
+              this.paginator = await this.http.delete(realUrl, { params: Utils.filterFieldsToValues(this.filterFields) }).toPromise() as any;
+              break;
+            }
+            case 'POST':
+            default: {
+              this.paginator = await this.http.post(realUrl, Utils.filterFieldsToValues(this.filterFields)).toPromise() as any;
+              break;
+            }
           }
         }
       }
@@ -82,16 +84,18 @@ export class DataTableComponent implements OnInit {
     }
 
     this.loading = false;
+
+    return true;
   }
 
   print(column: InfoColumn, element: any) {
     if (typeof column.method === 'function') {
       return column.method(element);
-    } else if (typeof element[column.property] === 'function') {
+    } else if (column.property && typeof element[column.property] === 'function') {
       return element[column.property](element);
     }
 
-    return element[column.property];
+    return column.property ? element[column.property] : null;
   }
 
 }
