@@ -47,5 +47,6 @@ export interface ServiceOperationDelete extends ServiceOperation {
   description?: string;
   successMessage?: string;
   errorMessage?: string;
+  submitButtonText?: string;
   handle?: (element: any) => any;
 }
