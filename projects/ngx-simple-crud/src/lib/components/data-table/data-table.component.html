@@ -1,6 +1,6 @@
-<table mat-table [dataSource]="paginator?.data">
+<table mat-table [dataSource]="paginator?.data || []">
 
-  <ng-container *ngFor="let column of infoColumns" [matColumnDef]="column.property || column.method">
+  <ng-container *ngFor="let column of infoColumns" [matColumnDef]="column.property || column.method?.toString() || ''">
     <th mat-header-cell *matHeaderCellDef> {{ column.title }} </th>
     <td mat-cell *matCellDef="let element"> {{ print(column, element) }} </td>
   </ng-container>

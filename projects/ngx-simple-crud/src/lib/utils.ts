@@ -14,6 +14,23 @@ export class Utils {
     return obj;
   }
 
+  static filterFieldsToArray(filterFields: FilterField[] | { [key: string]: FilterField}): FilterField[] {
+    let arr: FilterField[] = [];
+
+    if (filterFields instanceof Array) {
+      arr = filterFields;
+    } else if (typeof filterFields === 'object' && filterFields !== null) {
+      for (const key in filterFields) {
+        const filter: FilterField = (filterFields as any)[key];
+
+        arr.push(filter);
+
+      }
+    }
+
+    return arr;
+  }
+
   static filterFieldsToValues(filterFields: FilterField[] | { [key: string]: FilterField}): { [key: string]: string } {
     const obj = {};
 

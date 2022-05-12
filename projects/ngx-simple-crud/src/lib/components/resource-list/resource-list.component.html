@@ -13,11 +13,11 @@
 
     <mat-card-content>
       <form class="filters" (ngSubmit)="dataTable.filter()" autocomplete="off">
-        <simple-forms-field *ngFor="let field of filterFields | keyvalue: originalOrder" [(ngModel)]="field.value.value" [ngModelOptions]="{ standalone: true }" [field]="field.value" class="form-field"></simple-forms-field>
+        <simple-forms-field *ngFor="let field of filterFieldsToArray()" [(ngModel)]="field.value" [ngModelOptions]="{ standalone: true }" [field]="field" class="form-field"></simple-forms-field>
         <simple-forms-button *ngFor="let button of filterButtons" [button]="button" [handleParams]="[ filterFieldsToObject() ]"></simple-forms-button>
       </form>
 
-      <simple-crud-data-table [service]="service" [filterFields]="filterFields" [infoColumns]="infoColumns" [displayedColumns]="displayedColumns" [itemButtons]="itemButtons" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></simple-crud-data-table>
+      <simple-crud-data-table [service]="service" [filterFields]="filterFieldsToArray()" [infoColumns]="infoColumns" [displayedColumns]="displayedColumns" [itemButtons]="itemButtons" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></simple-crud-data-table>
     </mat-card-content>
   </mat-card>
 </div>

@@ -232,6 +232,10 @@ export class ResourceListComponent implements OnInit {
     return Utils.filterFieldsToObject(this.filterFields);
   }
 
+  filterFieldsToArray() {
+    return Utils.filterFieldsToArray(this.filterFields);
+  }
+
   originalOrder(a: any, b: any): number {
     return 0;
   }
