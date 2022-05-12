@@ -199,9 +199,9 @@ export class ResourceListComponent implements OnInit {
           tooltip: '',
         },
         {
-          color: 'warn',
+          color: this.service.delete?.submitButtonColor || 'warn' as any,
           text: this.service.delete?.submitButtonText || 'Confirmar eliminación',
-          icon: this.service.delete?.SubmitButtonIcon || 'delete',
+          icon: this.service.delete?.submitButtonIcon || 'delete',
           handle: this.hasDelete() && typeof this.service.delete?.handle === 'function' ? async (form: FormGroup) => {
             return this.service.delete?.handle ? await this.service.delete.handle(element) : null;
           } : () => null,
