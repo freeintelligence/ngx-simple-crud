@@ -1,6 +1,6 @@
 {
   "name": "ngx-simple-crud",
-  "version": "13.2.0",
+  "version": "17.0.0",
   "description": "Create simple forms (dialogs and components) and alerts, among others..",
   "author": {
     "name": "freeintelligence",
@@ -17,7 +17,7 @@
   "homepage": "https://github.com/freeintelligence/ngx-simple-crud#readme",
   "keywords": [
     "angular",
-    "angular13",
+    "angular17",
     "ng",
     "ngx",
     "universal",
@@ -31,16 +31,14 @@
     "filters"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.3.0",
-    "@angular/core": "^13.3.0",
-    "@angular/material": "^13.3.7",
-    "@angular/forms": "~13.3.0",
-    "@angular/router": "~13.3.0",
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/material": "~17.0.1",
+    "@angular/forms": "^17.0.0",
+    "@angular/router": "^17.0.0",
     "@ngneat/content-loader": "^7.0.0",
-    "ngx-material-file-input": "^3.0.0",
-    "ngx-simple-forms": "^13.0.0"
+    "ngx-material-file-input": "^4.0.1",
+    "ngx-simple-forms": "^17.0.0"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  }
+  "sideEffects": false
 }

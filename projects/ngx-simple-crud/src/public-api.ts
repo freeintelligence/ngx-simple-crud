@@ -1,5 +1,5 @@
 /*
- * Public API Surface of simple-crud
+ * Public API Surface of ngx-simple-crud
  */
 
 export * from './lib/simple-crud.module';

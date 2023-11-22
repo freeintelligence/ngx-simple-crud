@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ngx-simple-crud-workspace app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ngx-simple-crud-workspace');
   });
 });
