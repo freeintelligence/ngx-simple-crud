@@ -12,3 +12,6 @@ export * from './lib/components/manager-panel/manager-panel.parameters';
 
 export * from './lib/components/manager-read/manager-read.component';
 export * from './lib/components/manager-read/manager-read.parameters';
+
+export * from './lib/components/manager-create/manager-create.component';
+export * from './lib/components/manager-create/manager-create.parameters';

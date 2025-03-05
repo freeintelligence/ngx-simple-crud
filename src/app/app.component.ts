@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import {
   ManagerComponent,
   ManagerPanelParameters,
   ManagerHeaderParameters,
   ManagerReadParameters,
+  ManagerCreateParameters,
 } from 'ngx-simple-crud';
 
 @Component({
@@ -32,7 +34,7 @@ export class AppComponent {
           variant: 'icon',
           text: 'add',
           color: 'accent',
-          handle: async () => this.manager.readComponent.refreshData(),
+          handle: async () => this.manager.createComponent.open(),
         },
         styles: {
           width: '50%',
@@ -129,30 +131,75 @@ export class AppComponent {
     },
   };
 
-  /*   create = {
+  create: ManagerCreateParameters = {
     title: 'Crear Pokemon',
+    description: 'Formulario para la creación de un Pokemon',
     color: 'primary',
     service: {
-      url: ({ query, json }) => 'https://pokeapi.co/api/v2/pokemon',
+      url: ({ value: { query, json } }) =>
+        'https://jsonplaceholder.typicode.com/posts',
       method: 'POST',
-      body: (values: any) => values,
+      body: (value) => value,
       success: {
-        when: (response: any) => {
+        when: (response) => {
           return response.status === 201;
         },
         message: 'Pokemon creado exitosamente!',
       },
       error: {
-        when: (response: any) => {
-          return response.status !== 201;
-        },
         message:
           'Tenemos problemas al crear el Pokemon, inténtalo de nuevo más tarde.',
       },
     },
-    fields: {},
-    buttons: {},
-  }; */
+    fields: {
+      name: {
+        type: 'input',
+        params: {
+          label: 'Nombre',
+          type: 'text',
+        },
+        validators: [
+          [Validators.required, 'El nombre es obligatorio'],
+          [
+            Validators.minLength(3),
+            'El nombre debe tener al menos 3 caracteres',
+          ],
+          [
+            Validators.maxLength(32),
+            'El nombre debe tener como máximo 32 caracteres',
+          ],
+        ],
+      },
+    },
+    buttons: {
+      cancel: {
+        type: 'button',
+        params: {
+          color: 'warn',
+          variant: 'basic',
+          text: 'Cancelar',
+          type: 'button',
+        },
+        styles: {
+          marginTop: '16px',
+          width: '50%',
+        },
+      },
+      submit: {
+        type: 'button',
+        params: {
+          color: 'primary',
+          variant: 'raised',
+          text: 'Crear',
+          type: 'submit',
+        },
+        styles: {
+          marginTop: '16px',
+          width: '50%',
+        },
+      },
+    },
+  };
 
   read: ManagerReadParameters = {
     filters: {
