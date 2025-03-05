@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import {
   ManagerComponent,
-  ManagerFiltersParameters,
+  ManagerPanelParameters,
   ManagerHeaderParameters,
   ManagerReadParameters,
 } from 'ngx-simple-crud';
@@ -47,7 +47,7 @@ export class AppComponent {
     },
   };
 
-  filters: ManagerFiltersParameters = {
+  panel: ManagerPanelParameters = {
     elements: {
       name: {
         type: 'input',
@@ -110,7 +110,7 @@ export class AppComponent {
     filters: {
       submitOn: 'change',
       debounceTime: 1000,
-      elements: this.filters.elements,
+      elements: this.panel.elements,
     },
     service: {
       url: ({ offset, to, pageSize, pageNumber, filters: { query, json } }) => {

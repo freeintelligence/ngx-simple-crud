@@ -1,5 +1,5 @@
 import { FormElement } from 'ngx-simple-forms';
 
-export interface ManagerFiltersParameters {
+export interface ManagerPanelParameters {
   elements?: { [key: string]: FormElement };
 }

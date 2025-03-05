@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ManagerHeaderComponent } from '../manager-header/manager-header.component';
-import { ManagerFiltersComponent } from '../manager-filters/manager-filters.component';
+import { ManagerPanelComponent } from '../manager-panel/manager-panel.component';
 import { ManagerHeaderParameters } from '../manager-header/manager-header.parameters';
-import { ManagerFiltersParameters } from '../manager-filters/manager-filters.parameters';
+import { ManagerPanelParameters } from '../manager-panel/manager-panel.parameters';
 import { ManagerReadComponent } from '../manager-read/manager-read.component';
 import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
 
@@ -11,7 +11,7 @@ import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
   standalone: true,
   imports: [
     ManagerHeaderComponent,
-    ManagerFiltersComponent,
+    ManagerPanelComponent,
     ManagerReadComponent,
   ],
   templateUrl: './manager.component.html',
@@ -19,10 +19,10 @@ import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
 })
 export class ManagerComponent {
   @ViewChild(ManagerHeaderComponent) managerHeader!: ManagerHeaderComponent;
-  @ViewChild(ManagerFiltersComponent) managerFilters!: ManagerFiltersComponent;
+  @ViewChild(ManagerPanelComponent) ManagerPanel!: ManagerPanelComponent;
   @ViewChild(ManagerReadComponent) managerRead!: ManagerReadComponent;
 
   @Input() header!: ManagerHeaderParameters;
-  @Input() filters!: ManagerFiltersParameters;
+  @Input() panel!: ManagerPanelParameters;
   @Input() read!: ManagerReadParameters;
 }
