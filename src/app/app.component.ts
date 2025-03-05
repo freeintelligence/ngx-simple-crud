@@ -6,6 +6,8 @@ import {
   ManagerHeaderParameters,
   ManagerReadParameters,
   ManagerCreateParameters,
+  ManagerUpdateParameters,
+  deepClone,
 } from 'ngx-simple-crud';
 
 @Component({
@@ -230,6 +232,7 @@ export class AppComponent {
       pageSizeOptions: [10, 20, 50, 100],
     },
     columns: [
+      { title: 'ID', property: 'id', hidden: false },
       {
         title: 'Nombre',
         property: 'name',
@@ -253,7 +256,7 @@ export class AppComponent {
               text: 'edit',
               color: 'primary',
               handle: async ({ group, extra: item }) => {
-                console.log('edit', item);
+                this.manager.updateComponent.open(item);
               },
             },
             styles: {
@@ -279,11 +282,10 @@ export class AppComponent {
     ],
   };
 
-  /* update = {
-    base: this.create,
+  update: ManagerUpdateParameters = {
+    base: deepClone(this.create),
     title: 'Actualizar Pokemon',
     description: 'Formulario para la actualización de un Pokemon',
-    color: 'primary',
     service: {
       url: ({ value: { query, json } }) =>
         'https://jsonplaceholder.typicode.com/posts',
@@ -300,7 +302,15 @@ export class AppComponent {
           'Tenemos problemas al actualizar el Pokemon, inténtalo de nuevo más tarde.',
       },
     },
-  }; */
+    buttons: {
+      submit: {
+        type: 'button',
+        params: {
+          text: 'Actualizar',
+        },
+      },
+    },
+  };
 
   /* delete = {
     title: 'Eliminar Pokemon',

@@ -1,4 +1,10 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { ManagerCreateParameters } from './manager-create.parameters';
 import {
   ButtonParametersHandleData,
@@ -19,7 +25,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './manager-create.component.css',
 })
 export class ManagerCreateComponent {
-  public readonly DEFAULT_METHOD = 'POST';
+  public readonly DEFAULT_METHOD: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' =
+    'POST';
   public readonly DEFAULT_SUCCESS_WHEN_FN = (response: HttpResponse<Object>) =>
     response.status === 201;
 
@@ -31,6 +38,7 @@ export class ManagerCreateComponent {
   error!: string;
 
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private dialogService: DialogService,
     private managerCreateService: ManagerCreateService,
     private snackBar: MatSnackBar
@@ -63,7 +71,7 @@ export class ManagerCreateComponent {
     return this.setDescription(this.originalDescription, 'black');
   }
 
-  public open() {
+  public open(prefill?: unknown) {
     this.dialog = this.dialogService.open({
       title: {
         text: this.parameters.title,
@@ -79,6 +87,10 @@ export class ManagerCreateComponent {
       },
     });
 
+    this.dialog.afterOpened().subscribe(() => {
+      this.setPrefill(prefill);
+    });
+
     this.dialog.afterClosed().subscribe(() => {
       this.dialog.componentInstance.form.group.reset();
       this.resetOriginalDescription();
@@ -87,6 +99,26 @@ export class ManagerCreateComponent {
 
   public close() {
     this.dialog.close();
+  }
+
+  private setPrefill(prefill?: unknown) {
+    if (!prefill || typeof prefill !== 'object' || prefill === null) {
+      return;
+    }
+
+    for (const key in this.parameters.fields || {}) {
+      const element = this.parameters.fields?.[key];
+
+      if (!element) {
+        continue;
+      }
+
+      element.formControl?.setValue(
+        (prefill as { [key: string]: unknown })?.[key]
+      );
+    }
+
+    this.changeDetectorRef.detectChanges();
   }
 
   private interceptSubmitButton() {

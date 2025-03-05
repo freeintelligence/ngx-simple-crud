@@ -7,6 +7,10 @@ import { ManagerReadComponent } from '../manager-read/manager-read.component';
 import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
 import { ManagerCreateComponent } from '../manager-create/manager-create.component';
 import { ManagerCreateParameters } from '../manager-create/manager-create.parameters';
+import { ManagerUpdateComponent } from '../manager-update/manager-update.component';
+import { ManagerDeleteComponent } from '../manager-delete/manager-delete.component';
+import { ManagerDeleteParameters } from '../manager-delete/manager-delete.parameters';
+import { ManagerUpdateParameters } from '../manager-update/manager-update.parameters';
 
 @Component({
   selector: 'ngx-simple-crud-manager',
@@ -16,6 +20,8 @@ import { ManagerCreateParameters } from '../manager-create/manager-create.parame
     ManagerPanelComponent,
     ManagerReadComponent,
     ManagerCreateComponent,
+    ManagerUpdateComponent,
+    ManagerDeleteComponent,
   ],
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.css',
@@ -23,11 +29,15 @@ import { ManagerCreateParameters } from '../manager-create/manager-create.parame
 export class ManagerComponent {
   @ViewChild(ManagerHeaderComponent) headerComponent!: ManagerHeaderComponent;
   @ViewChild(ManagerPanelComponent) panelComponent!: ManagerPanelComponent;
-  @ViewChild(ManagerReadComponent) readComponent!: ManagerReadComponent;
   @ViewChild(ManagerCreateComponent) createComponent!: ManagerCreateComponent;
+  @ViewChild(ManagerReadComponent) readComponent!: ManagerReadComponent;
+  @ViewChild(ManagerUpdateComponent) updateComponent!: ManagerUpdateComponent;
+  @ViewChild(ManagerDeleteComponent) deleteComponent!: ManagerDeleteComponent;
 
   @Input() headerParameters!: ManagerHeaderParameters;
   @Input() panelParameters!: ManagerPanelParameters;
-  @Input() readParameters!: ManagerReadParameters;
   @Input() createParameters!: ManagerCreateParameters;
+  @Input() readParameters!: ManagerReadParameters;
+  @Input() updateParameters!: ManagerUpdateParameters;
+  @Input() deleteParameters!: ManagerDeleteParameters;
 }

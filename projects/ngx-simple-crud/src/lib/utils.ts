@@ -65,33 +65,27 @@ export function getDeepValue<T = unknown>(
 }
 
 export function deepClone<T>(value: T, map = new WeakMap<object, any>()): T {
-  // Manejo de valores primitivos y null
   if (value === null || typeof value !== 'object') {
     return value;
   }
 
-  // Evitar ciclos en estructuras circulares
   if (map.has(value)) {
     return map.get(value);
   }
 
-  // Clonar funciones manteniendo su referencia
   if (typeof value === 'function') {
     const fn = value as Function;
     return fn.bind({}) as unknown as T;
   }
 
-  // Clonar objetos Date
   if (value instanceof Date) {
     return new Date(value) as T;
   }
 
-  // Clonar objetos RegExp
   if (value instanceof RegExp) {
     return new RegExp(value) as T;
   }
 
-  // Clonar Map
   if (value instanceof Map) {
     const result = new Map();
     map.set(value, result);
@@ -101,7 +95,6 @@ export function deepClone<T>(value: T, map = new WeakMap<object, any>()): T {
     return result as T;
   }
 
-  // Clonar Set
   if (value instanceof Set) {
     const result = new Set();
     map.set(value, result);
@@ -111,7 +104,6 @@ export function deepClone<T>(value: T, map = new WeakMap<object, any>()): T {
     return result as T;
   }
 
-  // Clonar Array
   if (Array.isArray(value)) {
     const result: any[] = [];
     map.set(value, result);
@@ -121,7 +113,6 @@ export function deepClone<T>(value: T, map = new WeakMap<object, any>()): T {
     return result as T;
   }
 
-  // Clonar objetos genéricos (incluye instancias de clases)
   const result = Object.create(Object.getPrototypeOf(value));
   map.set(value, result);
 
@@ -130,4 +121,56 @@ export function deepClone<T>(value: T, map = new WeakMap<object, any>()): T {
   });
 
   return result as T;
+}
+
+export function deepMerge<T extends object>(target: T, source: T): T {
+  if (target === source) return target;
+
+  if (
+    typeof target !== 'object' ||
+    target === null ||
+    typeof source !== 'object' ||
+    source === null
+  ) {
+    return source;
+  }
+
+  if (Array.isArray(target) && Array.isArray(source)) {
+    return [...target, ...source] as T;
+  }
+
+  if (target instanceof Date && source instanceof Date) {
+    return new Date(Math.max(target.getTime(), source.getTime())) as T;
+  }
+
+  if (target instanceof Map && source instanceof Map) {
+    return new Map([...target, ...source]) as T;
+  }
+
+  if (target instanceof Set && source instanceof Set) {
+    return new Set([...target, ...source]) as T;
+  }
+
+  const merged: Record<string | symbol, any> = { ...target };
+
+  for (const key of Reflect.ownKeys(source)) {
+    const targetValue = (target as Record<string | symbol, any>)[key];
+    const sourceValue = (source as Record<string | symbol, any>)[key];
+
+    if (typeof sourceValue === 'function') {
+      merged[key] = sourceValue;
+    } else if (sourceValue instanceof Date) {
+      merged[key] = new Date(sourceValue.getTime());
+    } else if (sourceValue instanceof Map) {
+      merged[key] = new Map(sourceValue);
+    } else if (sourceValue instanceof Set) {
+      merged[key] = new Set(sourceValue);
+    } else if (typeof sourceValue === 'object' && sourceValue !== null) {
+      merged[key] = deepMerge(targetValue, sourceValue);
+    } else {
+      merged[key] = sourceValue;
+    }
+  }
+
+  return merged as T;
 }
