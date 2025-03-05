@@ -32,9 +32,12 @@ export class AppComponent {
           variant: 'icon',
           text: 'settings',
           handle: async () => {
-            this.filters.submitOn =
-              this.filters.submitOn === 'custom' ? 'change' : 'custom';
-            this.header.title = `Lista de Pokemons con actualización ${this.filters.submitOn}`;
+            if (this.read?.filters) {
+              this.read.filters.submitOn =
+                this.read.filters.submitOn === 'submit' ? 'change' : 'submit';
+            }
+
+            this.header.title = `Lista de Pokemons con actualización ${this.read.filters?.submitOn}`;
           },
         },
         styles: {
@@ -45,7 +48,6 @@ export class AppComponent {
   };
 
   filters: ManagerFiltersParameters = {
-    submitOn: 'change',
     elements: {
       name: {
         type: 'input',
@@ -64,6 +66,7 @@ export class AppComponent {
           label: 'Por tipo',
           placeholder: 'Filtrar por tipo',
           options: [
+            { value: undefined as unknown as string, description: 'Todos' },
             { value: 'normal', description: 'Normal' },
             { value: 'fire', description: 'Fuego' },
             { value: 'water', description: 'Agua' },
@@ -94,24 +97,26 @@ export class AppComponent {
           type: 'submit',
           variant: 'icon',
           text: 'search',
-          handle: async (form) => {
-            console.log('Submitted', form);
-          },
         },
         styles: {
           width: '74px',
         },
-        disabled: () => this.filters.submitOn === 'change',
+        disabled: () => this.read.filters?.submitOn === 'change',
       },
     },
   };
 
   read: ManagerReadParameters = {
+    filters: {
+      submitOn: 'change',
+      debounceTime: 1000,
+      elements: this.filters.elements,
+    },
     service: {
-      url: ({ offset, to, pageSize, pageNumber }) => {
+      url: ({ offset, to, pageSize, pageNumber, filters: { query, json } }) => {
         return this.read.pagination?.remote
-          ? `https://pokeapi.co/api/v2/pokemon-species?offset=${offset}&limit=${pageSize}`
-          : `https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=500`;
+          ? `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${pageSize}&${query}`
+          : `https://pokeapi.co/api/v2/pokemon?offset=0&limit=500`;
       },
       method: 'GET',
       keys: {
@@ -125,7 +130,7 @@ export class AppComponent {
       },
     },
     pagination: {
-      remote: false,
+      remote: true,
       pageSize: 10,
       pageSizeOptions: [10, 20, 50, 100],
     },

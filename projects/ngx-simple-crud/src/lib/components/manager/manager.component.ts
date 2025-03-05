@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ManagerHeaderComponent } from '../manager-header/manager-header.component';
 import { ManagerFiltersComponent } from '../manager-filters/manager-filters.component';
 import { ManagerHeaderParameters } from '../manager-header/manager-header.parameters';
@@ -18,6 +18,10 @@ import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
   styleUrl: './manager.component.css',
 })
 export class ManagerComponent {
+  @ViewChild(ManagerHeaderComponent) managerHeader!: ManagerHeaderComponent;
+  @ViewChild(ManagerFiltersComponent) managerFilters!: ManagerFiltersComponent;
+  @ViewChild(ManagerReadComponent) managerRead!: ManagerReadComponent;
+
   @Input() header!: ManagerHeaderParameters;
   @Input() filters!: ManagerFiltersParameters;
   @Input() read!: ManagerReadParameters;

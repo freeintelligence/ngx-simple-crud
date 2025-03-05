@@ -8,6 +8,7 @@ import {
 import { ManagerReadService } from './manager-read.service';
 import { HttpClientModule } from '@angular/common/http';
 import { getDeepValue } from '../../utils';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'ngx-simple-crud-manager-read',
@@ -19,6 +20,7 @@ import { getDeepValue } from '../../utils';
 export class ManagerReadComponent {
   public readonly DEFAULT_PAGE_SIZE = 10;
   public readonly DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
+  public readonly DEFAULT_DEBOUNCE_TIME = 1000;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -33,22 +35,10 @@ export class ManagerReadComponent {
   ) {}
 
   ngAfterViewInit() {
-    this.initPaginator();
     this.displayedColumnsListener();
+    this.initFilters();
     this.refreshData();
   }
-
-  initPaginator() {
-    if (this.parameters.pagination?.remote) {
-      return this.initRemotePaginator();
-    } else {
-      return this.initLocalPaginator();
-    }
-  }
-
-  initRemotePaginator() {}
-
-  initLocalPaginator() {}
 
   private displayedColumnsListener() {
     this.fnSetDisplayedColumns();
@@ -62,15 +52,82 @@ export class ManagerReadComponent {
     this.changeDetectorRef.detectChanges();
   }
 
+  private initFilters() {
+    this.parameters.filters = this.parameters.filters || {};
+    this.parameters.filters.submitOn ??= 'change';
+
+    this.initFiltersOnChange();
+    this.initFiltersOnSubmit();
+  }
+
+  private initFiltersOnChange() {
+    for (const key in this.parameters.filters?.elements ?? {}) {
+      const element = this.parameters.filters?.elements?.[key];
+
+      if (!element) {
+        continue;
+      }
+
+      element.formControl?.valueChanges
+        .pipe(
+          debounceTime(
+            this.parameters.filters?.debounceTime ?? this.DEFAULT_DEBOUNCE_TIME
+          )
+        )
+        .subscribe(() => {
+          if (this.parameters.filters?.submitOn !== 'change') {
+            return;
+          }
+
+          this.refreshData();
+        });
+    }
+  }
+
+  private initFiltersOnSubmit() {
+    for (const key in this.parameters.filters?.elements ?? {}) {
+      const element = this.parameters.filters?.elements?.[key];
+
+      if (!element) {
+        continue;
+      }
+
+      if (!(element.type === 'button' && element.params.type === 'submit')) {
+        continue;
+      }
+
+      const handleFn = element.params.handle;
+
+      element.params.handle = async (form) => {
+        if (typeof handleFn === 'function') {
+          await handleFn(form);
+        }
+
+        if (this.parameters.filters?.submitOn !== 'submit') {
+          return;
+        }
+
+        this.refreshData();
+      };
+    }
+  }
+
   public async refreshData() {
     const pageIndex = this.paginator.pageIndex;
     const pageSize = this.paginator.pageSize ?? this.DEFAULT_PAGE_SIZE;
     const offset = pageIndex * pageSize;
+    const filterValues = this.getFilterValues();
     const data: ManagerReadParametersServiceData = {
       offset,
       to: offset + pageSize,
       pageSize,
       pageNumber: pageIndex + 1,
+      filters: {
+        query: new URLSearchParams(
+          filterValues as Record<string, string>
+        ).toString(),
+        json: filterValues,
+      },
     };
 
     if (this.parameters.pagination?.remote || !this.lastResult) {
@@ -80,14 +137,16 @@ export class ManagerReadComponent {
       );
     }
 
-    const result = getDeepValue<unknown[]>(
+    const allItems = getDeepValue<{ [key: string]: unknown }[]>(
       this.lastResult,
       this.parameters.service.keys?.results
     );
 
-    let toShow: unknown[] = [];
+    let result: { [key: string]: unknown }[] = [];
+    let toShow: { [key: string]: unknown }[] = [];
 
     if (this.parameters.pagination?.remote) {
+      result = allItems || [];
       toShow = result || [];
 
       this.paginator.length =
@@ -96,11 +155,83 @@ export class ManagerReadComponent {
           this.parameters.service.keys?.count
         ) ?? 0;
     } else {
+      result = this.filterItems(allItems || []);
       toShow = result?.slice(offset, offset + pageSize) || [];
 
       this.paginator.length = result?.length ?? 0;
     }
 
     this.parameters.data = toShow || [];
+  }
+
+  private getFilterValues() {
+    const filters = this.parameters.filters?.elements;
+
+    if (!filters) {
+      return {};
+    }
+
+    const values: { [key: string]: unknown } = {};
+
+    for (const key in filters) {
+      const element = filters[key];
+
+      if (!element) {
+        continue;
+      }
+
+      const value = element.formControl?.value;
+
+      if (typeof value === 'undefined' || value === null) {
+        continue;
+      }
+
+      values[key] = element.formControl?.value;
+    }
+
+    return values;
+  }
+
+  private filterItems(items: { [key: string]: unknown }[]) {
+    const filters = this.parameters.filters?.elements;
+
+    if (!filters) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      for (const key in filters) {
+        const element = filters[key];
+
+        if (
+          !element ||
+          typeof element.formControl?.value === 'undefined' ||
+          element.formControl?.value === null
+        ) {
+          continue;
+        }
+
+        switch (element.type) {
+          case 'input': {
+            if (
+              item[key]?.toString().indexOf(element.formControl?.value) === -1
+            ) {
+              return false;
+            }
+
+            break;
+          }
+          case 'select': {
+            if (item[key] !== element.formControl?.value) {
+              return false;
+            }
+
+            break;
+          }
+        }
+      }
+
+      return true;
+    });
   }
 }

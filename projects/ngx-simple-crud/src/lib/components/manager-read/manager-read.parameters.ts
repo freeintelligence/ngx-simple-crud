@@ -1,4 +1,5 @@
 import { MatTableDataSource } from '@angular/material/table';
+import { FormElement } from 'ngx-simple-forms';
 
 export interface ManagerReadParametersColumn {
   title: string;
@@ -17,6 +18,10 @@ export interface ManagerReadParametersServiceData {
   to: number;
   pageSize: number;
   pageNumber: number;
+  filters: {
+    query: string;
+    json: { [key: string]: unknown };
+  };
 }
 
 export interface ManagerReadParametersServiceKeys {
@@ -31,8 +36,15 @@ export interface ManagerReadParametersService {
   keys?: ManagerReadParametersServiceKeys;
 }
 
+export interface ManagerReadParametersFilters {
+  submitOn?: 'change' | 'submit';
+  debounceTime?: number;
+  elements?: { [key: string]: FormElement };
+}
+
 export interface ManagerReadParameters {
   service: ManagerReadParametersService;
+  filters?: ManagerReadParametersFilters;
   columns: ManagerReadParametersColumn[];
   pagination?: ManagerReadParametersPagination;
   data?: unknown[];
