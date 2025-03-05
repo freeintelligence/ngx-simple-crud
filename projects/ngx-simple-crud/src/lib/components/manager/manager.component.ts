@@ -18,11 +18,11 @@ import { ManagerReadParameters } from '../manager-read/manager-read.parameters';
   styleUrl: './manager.component.css',
 })
 export class ManagerComponent {
-  @ViewChild(ManagerHeaderComponent) managerHeader!: ManagerHeaderComponent;
-  @ViewChild(ManagerPanelComponent) ManagerPanel!: ManagerPanelComponent;
-  @ViewChild(ManagerReadComponent) managerRead!: ManagerReadComponent;
+  @ViewChild(ManagerHeaderComponent) headerComponent!: ManagerHeaderComponent;
+  @ViewChild(ManagerPanelComponent) panelComponent!: ManagerPanelComponent;
+  @ViewChild(ManagerReadComponent) readComponent!: ManagerReadComponent;
 
-  @Input() header!: ManagerHeaderParameters;
-  @Input() panel!: ManagerPanelParameters;
-  @Input() read!: ManagerReadParameters;
+  @Input() headerParameters!: ManagerHeaderParameters;
+  @Input() panelParameters!: ManagerPanelParameters;
+  @Input() readParameters!: ManagerReadParameters;
 }

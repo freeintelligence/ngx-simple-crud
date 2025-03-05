@@ -26,22 +26,45 @@ export class AppComponent {
       },
     },
     rightElements: {
+      add: {
+        type: 'button',
+        params: {
+          variant: 'icon',
+          text: 'add',
+          color: 'accent',
+          handle: async () => this.manager.readComponent.refreshData(),
+        },
+        styles: {
+          width: '50%',
+        },
+      },
       favorite: {
         type: 'button',
         params: {
           variant: 'icon',
-          text: 'settings',
+          text: 'toggle_on',
           handle: async () => {
             if (this.read?.filters) {
               this.read.filters.submitOn =
                 this.read.filters.submitOn === 'submit' ? 'change' : 'submit';
+
+              if (
+                this.header.rightElements &&
+                this.header.rightElements['favorite'] &&
+                this.header.rightElements['favorite'].type === 'button'
+              ) {
+                this.header.rightElements['favorite'].params.text =
+                  this.read.filters.submitOn === 'change'
+                    ? 'toggle_on'
+                    : 'toggle_off';
+              }
             }
 
             this.header.title = `Lista de Pokemons con actualización ${this.read.filters?.submitOn}`;
           },
         },
         styles: {
-          width: '100%',
+          width: '50%',
         },
       },
     },
@@ -105,6 +128,31 @@ export class AppComponent {
       },
     },
   };
+
+  /*   create = {
+    title: 'Crear Pokemon',
+    color: 'primary',
+    service: {
+      url: ({ query, json }) => 'https://pokeapi.co/api/v2/pokemon',
+      method: 'POST',
+      body: (values: any) => values,
+      success: {
+        when: (response: any) => {
+          return response.status === 201;
+        },
+        message: 'Pokemon creado exitosamente!',
+      },
+      error: {
+        when: (response: any) => {
+          return response.status !== 201;
+        },
+        message:
+          'Tenemos problemas al crear el Pokemon, inténtalo de nuevo más tarde.',
+      },
+    },
+    fields: {},
+    buttons: {},
+  }; */
 
   read: ManagerReadParameters = {
     filters: {
