@@ -2,10 +2,11 @@ import { HttpResponse } from '@angular/common/http';
 import { FormElement } from 'ngx-simple-forms';
 
 export interface ManagerCreateParametersServiceData {
-  value: {
+  form: {
     query: string;
     json: { [key: string]: unknown };
   };
+  item?: { [key: string]: unknown };
 }
 
 export interface ManagerCreateParametersService {

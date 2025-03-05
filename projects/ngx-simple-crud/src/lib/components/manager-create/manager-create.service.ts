@@ -19,7 +19,7 @@ export class ManagerCreateService {
     const url = service.url(data);
     const body =
       typeof service.body === 'function'
-        ? service.body(data.value.json)
+        ? service.body(data.form.json)
         : undefined;
 
     switch (method) {

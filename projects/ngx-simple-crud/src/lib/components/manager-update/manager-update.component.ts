@@ -12,7 +12,12 @@ import { HttpResponse } from '@angular/common/http';
   styleUrl: './manager-update.component.css',
 })
 export class ManagerUpdateComponent extends ManagerCreateComponent {
-  public override readonly DEFAULT_METHOD = 'PATCH';
+  public override readonly DEFAULT_METHOD:
+    | 'GET'
+    | 'POST'
+    | 'PATCH'
+    | 'PUT'
+    | 'DELETE' = 'PATCH';
   public override readonly DEFAULT_SUCCESS_WHEN_FN = (
     response: HttpResponse<Object>
   ) => response.status === 200;
@@ -25,7 +30,7 @@ export class ManagerUpdateComponent extends ManagerCreateComponent {
     super.ngAfterViewInit();
   }
 
-  private cloneFromBase() {
+  protected cloneFromBase() {
     const base = this.parameters.base;
 
     if (!base && typeof this.parameters.base !== 'object') {

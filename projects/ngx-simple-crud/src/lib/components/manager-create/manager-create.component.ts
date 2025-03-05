@@ -36,6 +36,7 @@ export class ManagerCreateComponent {
 
   originalDescription?: string;
   error!: string;
+  prefill?: { [key: string]: unknown };
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -81,14 +82,11 @@ export class ManagerCreateComponent {
         text: this.parameters.description || '',
       },
       checkTimer: 256,
-      elements: {
-        ...(this.parameters.fields || {}),
-        ...(this.parameters.buttons || {}),
-      },
+      elements: this.getAllElements(),
     });
 
     this.dialog.afterOpened().subscribe(() => {
-      this.setPrefill(prefill);
+      this.setPrefill(prefill as { [key: string]: unknown });
     });
 
     this.dialog.afterClosed().subscribe(() => {
@@ -101,8 +99,21 @@ export class ManagerCreateComponent {
     this.dialog.close();
   }
 
-  private setPrefill(prefill?: unknown) {
-    if (!prefill || typeof prefill !== 'object' || prefill === null) {
+  protected getAllElements() {
+    return {
+      ...(this.parameters.fields || {}),
+      ...(this.parameters.buttons || {}),
+    };
+  }
+
+  private setPrefill(prefill?: { [key: string]: unknown }) {
+    this.prefill = prefill;
+
+    if (
+      !this.prefill ||
+      typeof this.prefill !== 'object' ||
+      this.prefill === null
+    ) {
       return;
     }
 
@@ -114,7 +125,7 @@ export class ManagerCreateComponent {
       }
 
       element.formControl?.setValue(
-        (prefill as { [key: string]: unknown })?.[key]
+        (this.prefill as { [key: string]: unknown })?.[key]
       );
     }
 
@@ -157,7 +168,7 @@ export class ManagerCreateComponent {
     try {
       const response = await this.managerCreateService.store(
         this.parameters.service,
-        { value: { json, query } }
+        { form: { json, query }, item: this.prefill }
       );
 
       const success =

@@ -8,6 +8,7 @@ import {
   ManagerCreateParameters,
   ManagerUpdateParameters,
   deepClone,
+  ManagerDeleteParameters,
 } from 'ngx-simple-crud';
 
 @Component({
@@ -138,7 +139,7 @@ export class AppComponent {
     description: 'Formulario para la creación de un Pokemon',
     color: 'primary',
     service: {
-      url: ({ value: { query, json } }) =>
+      url: ({ form: { query, json } }) =>
         'https://jsonplaceholder.typicode.com/posts',
       method: 'POST',
       body: (value) => value,
@@ -270,7 +271,7 @@ export class AppComponent {
               text: 'delete',
               color: 'warn',
               handle: async ({ group, extra: item }) => {
-                console.log('delete', item);
+                this.manager.deleteComponent.open(item);
               },
             },
             styles: {
@@ -287,7 +288,7 @@ export class AppComponent {
     title: 'Actualizar Pokemon',
     description: 'Formulario para la actualización de un Pokemon',
     service: {
-      url: ({ value: { query, json } }) =>
+      url: ({ form: { query, json } }) =>
         'https://jsonplaceholder.typicode.com/posts',
       method: 'PATCH',
       body: (value) => value,
@@ -312,13 +313,17 @@ export class AppComponent {
     },
   };
 
-  /* delete = {
+  delete: ManagerDeleteParameters = {
+    base: deepClone(this.create),
     title: 'Eliminar Pokemon',
-    description: 'Formulario para la eliminación de un Pokemon',
+    description: 'Estás seguro/a de querer eliminar el Pokemon?',
     color: 'primary',
     service: {
-      url: ({ value: { query, json } }) =>
-        'https://jsonplaceholder.typicode.com/posts',
+      url: ({ form: { json }, item }) => {
+        return `https://jsonplaceholder.typicode.com/posts/eliminar/${
+          (item as any).name
+        }`;
+      },
       method: 'DELETE',
       body: (value) => value,
       success: {
@@ -332,7 +337,17 @@ export class AppComponent {
           'Tenemos problemas al eliminar el Pokemon, inténtalo de nuevo más tarde.',
       },
     },
-  }; */
+    buttons: {
+      submit: {
+        type: 'button',
+        params: {
+          text: 'Confirmar',
+          color: 'warn',
+          variant: 'raised',
+        },
+      },
+    },
+  };
 
   constructor() {}
 
