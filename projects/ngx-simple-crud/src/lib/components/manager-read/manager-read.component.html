@@ -1,0 +1,26 @@
+<table mat-table [dataSource]="parameters.data">
+  @for (column of this.parameters.columns; track $index) {
+  <ng-container [matColumnDef]="column.property">
+    <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element?.[column.property] ?? "-" }}
+    </td>
+  </ng-container>
+  }
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      {{ parameters.notFound?.message ?? "No se encontraron resultados" }}
+    </td>
+  </tr>
+</table>
+
+<mat-paginator
+  [pageSize]="parameters.pagination?.pageSize ?? 10"
+  [pageSizeOptions]="parameters.pagination?.pageSizeOptions ?? [10, 50, 100]"
+  showFirstLastButtons
+>
+</mat-paginator>

@@ -1,0 +1,19 @@
+<mat-toolbar [color]="parameters.color">
+  @if (parameters.leftElements) {
+  <ngx-simple-forms-form
+    [checkTimer]="256"
+    [elements]="parameters.leftElements"
+  ></ngx-simple-forms-form>
+  }
+
+  <span>{{ parameters.title }}</span>
+
+  <span class="spacer"></span>
+
+  @if (parameters.rightElements) {
+  <ngx-simple-forms-form
+    [checkTimer]="256"
+    [elements]="parameters.rightElements"
+  ></ngx-simple-forms-form>
+  }
+</mat-toolbar>

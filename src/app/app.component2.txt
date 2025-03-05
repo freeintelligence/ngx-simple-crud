@@ -20,7 +20,7 @@ type ModelElement = any;
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent2 {
   @ViewChild('resourceList', { static: true })
   resourceList!: ResourceListComponent;
 
