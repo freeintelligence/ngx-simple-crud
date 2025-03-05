@@ -288,8 +288,8 @@ export class AppComponent {
     title: 'Actualizar Pokemon',
     description: 'Formulario para la actualización de un Pokemon',
     service: {
-      url: ({ form: { query, json } }) =>
-        'https://jsonplaceholder.typicode.com/posts',
+      url: ({ form: { query, json }, item }) =>
+        `https://jsonplaceholder.typicode.com/posts/${item?.['name']}`,
       method: 'PATCH',
       body: (value) => value,
       success: {
