@@ -91,6 +91,7 @@ export class AppComponent {
       submit: {
         type: 'button',
         params: {
+          type: 'submit',
           variant: 'icon',
           text: 'search',
           handle: async (form) => {
@@ -107,18 +108,31 @@ export class AppComponent {
 
   read: ManagerReadParameters = {
     service: {
-      url: ({ offset, to, limit, pageSize, pageNumber }) => {
-        return `https://pokeapi.co/api/v2/pokemon-species?offset=${offset}&limit=${limit}`;
+      url: ({ offset, to, pageSize, pageNumber }) => {
+        return this.read.pagination?.remote
+          ? `https://pokeapi.co/api/v2/pokemon-species?offset=${offset}&limit=${pageSize}`
+          : `https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=500`;
+      },
+      method: 'GET',
+      keys: {
+        results: 'results',
+        count: 'count',
+      },
+      body: (data) => {
+        return {
+          ...data,
+        };
       },
     },
     pagination: {
-      remote: true,
+      remote: false,
+      pageSize: 10,
+      pageSizeOptions: [10, 20, 50, 100],
     },
     columns: [
-      { title: 'ID', property: 'id', hidden: false },
       { title: 'Nombre', property: 'name', hidden: false },
+      { title: 'URL', property: 'url', hidden: false },
     ],
-    data: [],
   };
 
   constructor() {}

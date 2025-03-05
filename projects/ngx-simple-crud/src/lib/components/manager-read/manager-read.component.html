@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="parameters.data">
+<table mat-table [dataSource]="parameters.data ?? []">
   @for (column of this.parameters.columns; track $index) {
   <ng-container [matColumnDef]="column.property">
     <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
@@ -19,8 +19,11 @@
 </table>
 
 <mat-paginator
-  [pageSize]="parameters.pagination?.pageSize ?? 10"
-  [pageSizeOptions]="parameters.pagination?.pageSizeOptions ?? [10, 50, 100]"
+  [pageSize]="parameters.pagination?.pageSize ?? DEFAULT_PAGE_SIZE"
+  [pageSizeOptions]="
+    parameters.pagination?.pageSizeOptions ?? DEFAULT_PAGE_SIZE_OPTIONS
+  "
   showFirstLastButtons
+  (page)="refreshData()"
 >
 </mat-paginator>
