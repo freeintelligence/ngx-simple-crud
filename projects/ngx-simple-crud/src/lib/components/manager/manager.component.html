@@ -6,9 +6,10 @@
   [parameters]="panelParameters"
 ></ngx-simple-crud-manager-panel>
 
-<ngx-simple-crud-manager-read
-  [parameters]="readParameters"
-></ngx-simple-crud-manager-read>
+<div class="read-container">
+  <ngx-simple-crud-manager-read [parameters]="readParameters">
+  </ngx-simple-crud-manager-read>
+</div>
 
 <ngx-simple-crud-manager-create
   [parameters]="createParameters"

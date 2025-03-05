@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { ManagerCreateParameters } from './manager-create.parameters';
-import { DialogComponent, DialogService, FormElement } from 'ngx-simple-forms';
+import {
+  ButtonParametersHandleData,
+  DialogComponent,
+  DialogService,
+  FormElement,
+} from 'ngx-simple-forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup } from '@angular/forms';
 import { ManagerCreateService } from './manager-create.service';
 import { HttpResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -94,19 +98,20 @@ export class ManagerCreateComponent {
 
     const handleFn = submitButton.params.handle;
 
-    submitButton.params.handle = async (form) => {
+    submitButton.params.handle = async (data) => {
       if (typeof handleFn === 'function') {
-        await handleFn(form);
+        await handleFn(data);
       }
 
-      await this.submit(form);
+      await this.submit(data);
     };
   }
 
-  private async submit(form: FormGroup) {
+  private async submit(data: ButtonParametersHandleData<unknown>) {
     const submitButton = this.getFirstSubmitButton();
+    const { group } = data;
 
-    if (form.invalid || !submitButton || submitButton.type !== 'button') {
+    if (group.invalid || !submitButton || submitButton.type !== 'button') {
       return;
     }
 
@@ -114,7 +119,7 @@ export class ManagerCreateComponent {
 
     submitButton.params.loading = true;
 
-    const json = form.value;
+    const json = group.value;
     const query = new URLSearchParams(json).toString();
 
     try {

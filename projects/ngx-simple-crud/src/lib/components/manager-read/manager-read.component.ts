@@ -1,19 +1,35 @@
-import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import {
   ManagerReadParameters,
+  ManagerReadParametersColumn,
   ManagerReadParametersServiceData,
 } from './manager-read.parameters';
 import { ManagerReadService } from './manager-read.service';
 import { HttpClientModule } from '@angular/common/http';
-import { getDeepValue } from '../../utils';
+import { deepClone, getDeepValue } from '../../utils';
 import { debounceTime } from 'rxjs';
+import { FormComponent, FormElement } from 'ngx-simple-forms';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'ngx-simple-crud-manager-read',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, HttpClientModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    HttpClientModule,
+    FormComponent,
+    NgStyle,
+  ],
   templateUrl: './manager-read.component.html',
   styleUrl: './manager-read.component.css',
 })
@@ -22,12 +38,16 @@ export class ManagerReadComponent {
   public readonly DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
   public readonly DEFAULT_DEBOUNCE_TIME = 1000;
 
+  @ViewChildren('elementsOnItem') elementsOnItem!: QueryList<FormComponent>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @Input() parameters!: ManagerReadParameters;
 
   public displayedColumns: string[] = [];
   public lastResult!: unknown;
+  public clonedElementColumns: {
+    [key: number]: { [key: string]: FormElement };
+  } = {};
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -38,6 +58,49 @@ export class ManagerReadComponent {
     this.displayedColumnsListener();
     this.initFilters();
     this.refreshData();
+  }
+
+  private interceptButtonsOnItems() {
+    this.changeDetectorRef.detectChanges();
+    this.clonedElementColumns = {};
+
+    const data = this.parameters.data || [];
+
+    for (let index = 0; index < data.length; index++) {
+      const item = data[index];
+
+      if (!item) {
+        continue;
+      }
+
+      const formInstance = this.elementsOnItem.get(index);
+
+      if (!formInstance) {
+        continue;
+      }
+
+      for (const key in formInstance?.elements || {}) {
+        const element = formInstance?.elements?.[key];
+
+        if (!element) {
+          continue;
+        }
+
+        if (element.type !== 'button') {
+          continue;
+        }
+
+        const getExtraFn = element.params.getExtra;
+
+        element.params.getExtra = () => {
+          if (typeof getExtraFn === 'function') {
+            getExtraFn();
+          }
+
+          return item;
+        };
+      }
+    }
   }
 
   private displayedColumnsListener() {
@@ -162,6 +225,8 @@ export class ManagerReadComponent {
     }
 
     this.parameters.data = toShow || [];
+
+    this.interceptButtonsOnItems();
   }
 
   private getFilterValues() {

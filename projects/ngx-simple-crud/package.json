@@ -37,7 +37,7 @@
     "@angular/forms": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@ngneat/content-loader": "^7.0.0",
-    "ngx-simple-forms": "^17.0.0"
+    "ngx-simple-forms": "^17.11.0"
   },
   "sideEffects": false
 }

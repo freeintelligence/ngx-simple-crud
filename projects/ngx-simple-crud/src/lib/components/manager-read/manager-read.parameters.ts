@@ -1,10 +1,11 @@
-import { MatTableDataSource } from '@angular/material/table';
 import { FormElement } from 'ngx-simple-forms';
 
 export interface ManagerReadParametersColumn {
   title: string;
   property: string;
   hidden?: boolean;
+  styles?: Partial<CSSStyleDeclaration>;
+  elements?: { [key: string]: FormElement };
 }
 
 export interface ManagerReadParametersPagination {

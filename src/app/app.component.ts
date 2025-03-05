@@ -230,10 +230,99 @@ export class AppComponent {
       pageSizeOptions: [10, 20, 50, 100],
     },
     columns: [
-      { title: 'Nombre', property: 'name', hidden: false },
+      {
+        title: 'Nombre',
+        property: 'name',
+        hidden: false,
+        styles: { width: '312px' },
+      },
       { title: 'URL', property: 'url', hidden: false },
+      {
+        title: 'Opciones',
+        property: 'options',
+        hidden: false,
+        styles: {
+          width: '184px',
+          textAlign: 'center',
+        },
+        elements: {
+          edit: {
+            type: 'button',
+            params: {
+              variant: 'icon',
+              text: 'edit',
+              color: 'primary',
+              handle: async ({ group, extra: item }) => {
+                console.log('edit', item);
+              },
+            },
+            styles: {
+              width: '72px',
+            },
+          },
+          delete: {
+            type: 'button',
+            params: {
+              variant: 'icon',
+              text: 'delete',
+              color: 'warn',
+              handle: async ({ group, extra: item }) => {
+                console.log('delete', item);
+              },
+            },
+            styles: {
+              width: '72px',
+            },
+          },
+        },
+      },
     ],
   };
+
+  /* update = {
+    base: this.create,
+    title: 'Actualizar Pokemon',
+    description: 'Formulario para la actualización de un Pokemon',
+    color: 'primary',
+    service: {
+      url: ({ value: { query, json } }) =>
+        'https://jsonplaceholder.typicode.com/posts',
+      method: 'PATCH',
+      body: (value) => value,
+      success: {
+        when: (response) => {
+          return response.status === 200;
+        },
+        message: 'Pokemon actualizado exitosamente!',
+      },
+      error: {
+        message:
+          'Tenemos problemas al actualizar el Pokemon, inténtalo de nuevo más tarde.',
+      },
+    },
+  }; */
+
+  /* delete = {
+    title: 'Eliminar Pokemon',
+    description: 'Formulario para la eliminación de un Pokemon',
+    color: 'primary',
+    service: {
+      url: ({ value: { query, json } }) =>
+        'https://jsonplaceholder.typicode.com/posts',
+      method: 'DELETE',
+      body: (value) => value,
+      success: {
+        when: (response) => {
+          return response.status === 200;
+        },
+        message: 'Pokemon eliminado exitosamente!',
+      },
+      error: {
+        message:
+          'Tenemos problemas al eliminar el Pokemon, inténtalo de nuevo más tarde.',
+      },
+    },
+  }; */
 
   constructor() {}
 

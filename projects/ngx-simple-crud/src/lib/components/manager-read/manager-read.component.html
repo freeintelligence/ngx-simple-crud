@@ -1,9 +1,20 @@
 <table mat-table [dataSource]="parameters.data ?? []">
   @for (column of this.parameters.columns; track $index) {
   <ng-container [matColumnDef]="column.property">
-    <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
-    <td mat-cell *matCellDef="let element">
+    <th mat-header-cell [ngStyle]="column.styles" *matHeaderCellDef>
+      {{ column.title }}
+    </th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      @if (!column.elements) {
       {{ element?.[column.property] ?? "-" }}
+      } @else {
+      <ngx-simple-forms-form
+        #elementsOnItem
+        [checkTimer]="256"
+        [elements]="column.elements"
+        [cloneElements]="true"
+      ></ngx-simple-forms-form>
+      }
     </td>
   </ng-container>
   }
