@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ManagerPanelParameters } from './manager-panel.parameters';
 import { FormComponent } from 'ngx-simple-forms';
 
