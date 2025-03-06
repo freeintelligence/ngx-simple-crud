@@ -9,13 +9,13 @@ import {
   providedIn: 'root',
 })
 export class ManagerReadService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getSubscribe(
     service: ManagerReadParametersService,
     data: ManagerReadParametersServiceData
   ) {
-    const method = service.method || 'GET';
+    const method = service.method ?? 'GET';
     const url = service.url(data);
     const body =
       typeof service.body === 'function' ? service.body(data) : undefined;

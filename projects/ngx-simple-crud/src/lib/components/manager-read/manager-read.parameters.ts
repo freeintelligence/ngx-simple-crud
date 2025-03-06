@@ -4,6 +4,7 @@ export interface ManagerReadParametersColumn {
   title: string;
   property: string;
   hidden?: boolean;
+  mutate?: <T>(value: T) => unknown;
   styles?: Partial<CSSStyleDeclaration>;
   elements?: { [key: string]: FormElement };
 }

@@ -10,6 +10,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import {
   ManagerReadParameters,
+  ManagerReadParametersColumn,
   ManagerReadParametersServiceData,
 } from './manager-read.parameters';
 import { ManagerReadService } from './manager-read.service';
@@ -299,5 +300,13 @@ export class ManagerReadComponent {
 
       return true;
     });
+  }
+
+  public mutate(value: unknown, column: ManagerReadParametersColumn) {
+    if (!column.mutate) {
+      return value;
+    }
+
+    return column.mutate(value);
   }
 }

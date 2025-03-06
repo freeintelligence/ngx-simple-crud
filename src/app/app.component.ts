@@ -238,6 +238,7 @@ export class AppComponent {
         title: 'Nombre',
         property: 'name',
         hidden: false,
+        mutate: (value) => value?.toString() + '!!!',
         styles: { width: '312px' },
       },
       { title: 'URL', property: 'url', hidden: false },
