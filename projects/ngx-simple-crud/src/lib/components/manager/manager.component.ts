@@ -11,6 +11,7 @@ import { ManagerUpdateComponent } from '../manager-update/manager-update.compone
 import { ManagerDeleteComponent } from '../manager-delete/manager-delete.component';
 import { ManagerDeleteParameters } from '../manager-delete/manager-delete.parameters';
 import { ManagerUpdateParameters } from '../manager-update/manager-update.parameters';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ngx-simple-crud-manager',
@@ -22,6 +23,7 @@ import { ManagerUpdateParameters } from '../manager-update/manager-update.parame
     ManagerCreateComponent,
     ManagerUpdateComponent,
     ManagerDeleteComponent,
+    NgIf,
   ],
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.css',

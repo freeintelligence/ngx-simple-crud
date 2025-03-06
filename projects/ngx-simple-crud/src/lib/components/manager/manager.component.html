@@ -1,24 +1,29 @@
 <ngx-simple-crud-manager-header
+  *ngIf="headerParameters"
   [parameters]="headerParameters"
 ></ngx-simple-crud-manager-header>
 
 <ngx-simple-crud-manager-panel
+  *ngIf="panelParameters"
   [parameters]="panelParameters"
 ></ngx-simple-crud-manager-panel>
 
-<div class="read-container">
+<div class="read-container" *ngIf="readParameters">
   <ngx-simple-crud-manager-read [parameters]="readParameters">
   </ngx-simple-crud-manager-read>
 </div>
 
 <ngx-simple-crud-manager-create
+  *ngIf="createParameters"
   [parameters]="createParameters"
 ></ngx-simple-crud-manager-create>
 
 <ngx-simple-crud-manager-update
+  *ngIf="updateParameters"
   [parameters]="updateParameters"
 ></ngx-simple-crud-manager-update>
 
 <ngx-simple-crud-manager-delete
+  *ngIf="deleteParameters"
   [parameters]="deleteParameters"
 ></ngx-simple-crud-manager-delete>
