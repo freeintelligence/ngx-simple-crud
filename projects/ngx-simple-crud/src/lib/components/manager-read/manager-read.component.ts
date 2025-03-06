@@ -10,12 +10,11 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import {
   ManagerReadParameters,
-  ManagerReadParametersColumn,
   ManagerReadParametersServiceData,
 } from './manager-read.parameters';
 import { ManagerReadService } from './manager-read.service';
 import { HttpClientModule } from '@angular/common/http';
-import { deepClone, getDeepValue } from '../../utils';
+import { getDeepValue } from '../../utils';
 import { debounceTime } from 'rxjs';
 import { FormComponent, FormElement } from 'ngx-simple-forms';
 import { NgStyle } from '@angular/common';
@@ -50,8 +49,8 @@ export class ManagerReadComponent {
   } = {};
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private managerReadService: ManagerReadService
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly managerReadService: ManagerReadService
   ) {}
 
   ngAfterViewInit() {
@@ -269,9 +268,8 @@ export class ManagerReadComponent {
         const element = filters[key];
 
         if (
-          !element ||
-          typeof element.formControl?.value === 'undefined' ||
-          element.formControl?.value === null
+          !element?.formControl?.value ||
+          element?.formControl?.value === null
         ) {
           continue;
         }
@@ -279,7 +277,10 @@ export class ManagerReadComponent {
         switch (element.type) {
           case 'input': {
             if (
-              item[key]?.toString().indexOf(element.formControl?.value) === -1
+              item[key]
+                ?.toString?.()
+                ?.toLowerCase?.()
+                ?.indexOf?.(element?.formControl?.value?.toLowerCase?.()) === -1
             ) {
               return false;
             }
