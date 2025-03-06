@@ -1,5 +1,5 @@
 <table mat-table [dataSource]="parameters.data ?? []">
-  @for (column of this.parameters.columns) {
+  @for (column of this.parameters.columns; track column) {
   <ng-container [matColumnDef]="column.property">
     <th mat-header-cell [ngStyle]="column.styles" *matHeaderCellDef>
       {{ column.title }}
