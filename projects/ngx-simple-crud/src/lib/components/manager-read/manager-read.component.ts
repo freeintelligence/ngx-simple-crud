@@ -299,7 +299,8 @@ export class ManagerReadComponent {
 
             break;
           }
-          case 'select': {
+          case 'select':
+          case 'remote-select': {
             if (item[key] !== element.formControl?.value) {
               return false;
             }
