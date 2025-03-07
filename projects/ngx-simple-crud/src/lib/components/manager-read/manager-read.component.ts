@@ -62,7 +62,6 @@ export class ManagerReadComponent {
 
   private interceptButtonsOnItems() {
     this.changeDetectorRef.detectChanges();
-    this.clonedElementColumns = {};
 
     const data = this.parameters.data || [];
 
@@ -85,6 +84,18 @@ export class ManagerReadComponent {
         if (!element) {
           continue;
         }
+
+        const getOnExtraFn = element.getOnExtra;
+
+        element.getOnExtra = () => {
+          let data = {};
+
+          if (typeof getOnExtraFn === 'function') {
+            data = getOnExtraFn();
+          }
+
+          return { ...data, item, elements: formInstance.elements };
+        };
 
         if (element.type !== 'button') {
           continue;

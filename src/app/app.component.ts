@@ -10,7 +10,13 @@ import {
   deepClone,
   ManagerDeleteParameters,
 } from 'ngx-simple-crud';
+import { FormElement } from 'ngx-simple-forms';
 
+interface MM {
+  defecto: string;
+  item: any;
+  elements: { [key: string]: FormElement };
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -277,6 +283,24 @@ export class AppComponent {
             },
             styles: {
               width: '72px',
+            },
+            onMouseOver: (event, extra: MM) => {
+              console.log('extra', extra);
+
+              if (extra.elements['edit'].type !== 'button') {
+                return;
+              }
+
+              extra.elements['edit'].params.color = 'accent';
+            },
+            tooltip: {
+              withHtml: false,
+              message: 'Eliminar a este Pokemon',
+            },
+            getOnExtra: () => {
+              return {
+                defecto: 'practica',
+              };
             },
           },
         },
