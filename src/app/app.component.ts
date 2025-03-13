@@ -83,7 +83,7 @@ export class AppComponent {
 
   panel: ManagerPanelParameters = {
     elements: {
-      name: {
+      'name.english': {
         type: 'input',
         params: {
           label: 'Por nombre',
@@ -94,11 +94,11 @@ export class AppComponent {
           width: '312px',
         },
       },
-      url: {
+      description: {
         type: 'input',
         params: {
-          label: 'Por URL',
-          placeholder: 'Filtrar por URL',
+          label: 'Por descripción',
+          placeholder: 'Filtrar por descripción',
         },
         styles: {
           width: 'calc(100% - 312px - 74px)',
@@ -198,14 +198,11 @@ export class AppComponent {
     service: {
       url: ({ offset, to, pageSize, pageNumber, filters: { query, json } }) => {
         return this.read.pagination?.remote
-          ? `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${pageSize}&${query}`
-          : `https://pokeapi.co/api/v2/pokemon?offset=0&limit=500`;
+          ? `https://pokeapi.co/api/v2/pokemon-species?offset=${offset}&limit=${pageSize}&${query}`
+          : `https://raw.githubusercontent.com/Purukitto/pokemon-data.json/refs/heads/master/items.json`;
       },
       method: 'GET',
-      keys: {
-        results: 'results',
-        count: 'count',
-      },
+      keys: {},
       body: (data) => {
         return {
           ...data,
@@ -219,14 +216,16 @@ export class AppComponent {
     },
     columns: [
       { title: 'ID', property: 'id', hidden: false },
+      { title: 'Tipo', property: 'type', hidden: false },
       {
         title: 'Nombre',
         property: 'name',
         hidden: false,
-        mutate: (value) => value?.toString() + '!!!',
+        mutate: (value) =>
+          ((value as any)?.english?.toString() || (value as any)) + '!!!',
         styles: { width: '312px' },
       },
-      { title: 'URL', property: 'url', hidden: false },
+      { title: 'Descripción', property: 'description', hidden: false },
       {
         title: 'Opciones',
         property: 'options',

@@ -299,7 +299,7 @@ export class ManagerReadComponent {
       return items;
     }
 
-    return items.filter((item) => {
+    const result = items.filter((item) => {
       for (const key in filters) {
         const element = filters[key];
 
@@ -310,10 +310,19 @@ export class ManagerReadComponent {
           continue;
         }
 
+        const value = getDeepValue<string | number | undefined | null>(
+          item,
+          key
+        );
+
+        if (typeof value === 'undefined' || value === '' || value === null) {
+          return false;
+        }
+
         switch (element.type) {
           case 'input': {
             if (
-              item[key]
+              value
                 ?.toString?.()
                 ?.toLowerCase?.()
                 ?.indexOf?.(element?.formControl?.value?.toLowerCase?.()) === -1
@@ -325,7 +334,7 @@ export class ManagerReadComponent {
           }
           case 'select':
           case 'remote-select': {
-            if (item[key] !== element.formControl?.value) {
+            if (value !== element.formControl?.value) {
               return false;
             }
 
@@ -336,6 +345,8 @@ export class ManagerReadComponent {
 
       return true;
     });
+
+    return result;
   }
 
   public mutate(value: unknown, column: ManagerReadParametersColumn) {
