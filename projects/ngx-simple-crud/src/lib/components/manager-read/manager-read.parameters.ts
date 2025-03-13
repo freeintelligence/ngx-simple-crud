@@ -53,4 +53,7 @@ export interface ManagerReadParameters {
   notFound?: {
     message: string;
   };
+  error?: {
+    message: string;
+  };
 }

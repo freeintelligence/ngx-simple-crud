@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { getDeepValue } from '../../utils';
 import { debounceTime } from 'rxjs';
 import { FormComponent, FormElement } from 'ngx-simple-forms';
-import { NgStyle } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'ngx-simple-crud-manager-read',
@@ -29,6 +30,8 @@ import { NgStyle } from '@angular/common';
     HttpClientModule,
     FormComponent,
     NgStyle,
+    NgIf,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './manager-read.component.html',
   styleUrl: './manager-read.component.css',
@@ -43,6 +46,8 @@ export class ManagerReadComponent {
 
   @Input() parameters!: ManagerReadParameters;
 
+  public loading?: boolean = true;
+  public error?: Error;
   public displayedColumns: string[] = [];
   public lastResult!: unknown;
   public clonedElementColumns: {
@@ -187,57 +192,76 @@ export class ManagerReadComponent {
   }
 
   public async refreshData(forceFetch: boolean = false) {
-    const pageIndex = this.paginator.pageIndex;
-    const pageSize = this.paginator.pageSize ?? this.DEFAULT_PAGE_SIZE;
-    const offset = pageIndex * pageSize;
-    const filterValues = this.getFilterValues();
-    const data: ManagerReadParametersServiceData = {
-      offset,
-      to: offset + pageSize,
-      pageSize,
-      pageNumber: pageIndex + 1,
-      filters: {
-        query: new URLSearchParams(
-          filterValues as Record<string, string>
-        ).toString(),
-        json: filterValues,
-      },
-    };
+    this.loading = true;
+    this.error = undefined;
+    this.parameters.data = [];
 
-    if (this.parameters.pagination?.remote || !this.lastResult || forceFetch) {
-      this.lastResult = await this.managerReadService.get(
-        this.parameters.service,
-        data
+    try {
+      const pageIndex = this.paginator.pageIndex;
+      const pageSize = this.paginator.pageSize ?? this.DEFAULT_PAGE_SIZE;
+      const offset = pageIndex * pageSize;
+      const filterValues = this.getFilterValues();
+      const data: ManagerReadParametersServiceData = {
+        offset,
+        to: offset + pageSize,
+        pageSize,
+        pageNumber: pageIndex + 1,
+        filters: {
+          query: new URLSearchParams(
+            filterValues as Record<string, string>
+          ).toString(),
+          json: filterValues,
+        },
+      };
+
+      if (
+        this.parameters.pagination?.remote ||
+        !this.lastResult ||
+        forceFetch
+      ) {
+        this.lastResult = await this.managerReadService.get(
+          this.parameters.service,
+          data
+        );
+      }
+
+      const allItems = getDeepValue<{ [key: string]: unknown }[]>(
+        this.lastResult,
+        this.parameters.service.keys?.results
       );
+
+      let result: { [key: string]: unknown }[] = [];
+      let toShow: { [key: string]: unknown }[] = [];
+
+      if (this.parameters.pagination?.remote) {
+        result = allItems || [];
+        toShow = result || [];
+
+        this.paginator.length =
+          getDeepValue<number>(
+            this.lastResult,
+            this.parameters.service.keys?.count
+          ) ?? 0;
+      } else {
+        result = this.filterItems(allItems || []);
+        toShow = result?.slice(offset, offset + pageSize) || [];
+
+        this.paginator.length = result?.length ?? 0;
+      }
+
+      this.parameters.data = toShow || [];
+
+      this.interceptButtonsOnItems();
+    } catch (err) {
+      console.log('err', err);
+      const error: Error = err as Error;
+
+      this.error = error;
     }
 
-    const allItems = getDeepValue<{ [key: string]: unknown }[]>(
-      this.lastResult,
-      this.parameters.service.keys?.results
-    );
+    this.loading = false;
 
-    let result: { [key: string]: unknown }[] = [];
-    let toShow: { [key: string]: unknown }[] = [];
-
-    if (this.parameters.pagination?.remote) {
-      result = allItems || [];
-      toShow = result || [];
-
-      this.paginator.length =
-        getDeepValue<number>(
-          this.lastResult,
-          this.parameters.service.keys?.count
-        ) ?? 0;
-    } else {
-      result = this.filterItems(allItems || []);
-      toShow = result?.slice(offset, offset + pageSize) || [];
-
-      this.paginator.length = result?.length ?? 0;
-    }
-
-    this.parameters.data = toShow || [];
-
-    this.interceptButtonsOnItems();
+    this.changeDetectorRef.markForCheck();
   }
 
   private getFilterValues() {

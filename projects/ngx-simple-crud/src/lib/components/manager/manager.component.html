@@ -22,14 +22,14 @@
   ></ngx-simple-crud-manager-create>
 </div>
 
-<div *ngIf="updateParameters">
+<div class="update-container" *ngIf="updateParameters">
   <ngx-simple-crud-manager-update
     [parameters]="updateParameters"
     (success)="onUpdate()"
   ></ngx-simple-crud-manager-update>
 </div>
 
-<div *ngIf="deleteParameters">
+<div class="delete-container" *ngIf="deleteParameters">
   <ngx-simple-crud-manager-delete
     [parameters]="deleteParameters"
     (success)="onDelete()"

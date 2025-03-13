@@ -21,19 +21,36 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-  <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4">
-      {{ parameters.notFound?.message ?? "No se encontraron resultados" }}
-    </td>
-  </tr>
 </table>
+
+<div *ngIf="!loading && error" class="error-container">
+  <div class="error-message">
+    <p>
+      {{
+        parameters.error?.message ??
+          "Ha ocurrido un error. Inténtalo de nuevo más tarde."
+      }}
+    </p>
+  </div>
+</div>
+
+<div
+  *ngIf="!loading && !error && !parameters.data?.length"
+  class="not-found-container"
+>
+  <p>{{ parameters.notFound?.message ?? "No se encontraron resultados" }}</p>
+</div>
+
+<div class="loading-container" *ngIf="this.loading">
+  <mat-spinner diameter="48"></mat-spinner>
+</div>
 
 <mat-paginator
   [pageSize]="parameters.pagination?.pageSize ?? DEFAULT_PAGE_SIZE"
   [pageSizeOptions]="
     parameters.pagination?.pageSizeOptions ?? DEFAULT_PAGE_SIZE_OPTIONS
   "
+  [disabled]="loading"
   showFirstLastButtons
   (page)="refreshData()"
 >
