@@ -321,7 +321,7 @@ export class ManagerReadComponent {
               return false;
             }
 
-            break;
+            continue;
           }
           case 'select':
           case 'remote-select': {
@@ -329,7 +329,7 @@ export class ManagerReadComponent {
               return false;
             }
 
-            break;
+            continue;
           }
         }
       }
