@@ -1,9 +1,9 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
-  QueryList,
-  ViewChildren,
+  Output,
 } from '@angular/core';
 import { ManagerCreateParameters } from './manager-create.parameters';
 import {
@@ -30,19 +30,21 @@ export class ManagerCreateComponent {
   public readonly DEFAULT_SUCCESS_WHEN_FN = (response: HttpResponse<Object>) =>
     response.status === 201;
 
+  @Output() public readonly success = new EventEmitter<void>();
+  @Output() public readonly cancel = new EventEmitter<void>();
+  @Output() public readonly error = new EventEmitter<void>();
   @Input({ required: true }) parameters!: ManagerCreateParameters;
 
   dialog!: MatDialogRef<DialogComponent>;
 
   originalDescription?: string;
-  error!: string;
   prefill?: { [key: string]: unknown };
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private dialogService: DialogService,
-    private managerCreateService: ManagerCreateService,
-    private snackBar: MatSnackBar
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly dialogService: DialogService,
+    private readonly managerCreateService: ManagerCreateService,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   ngAfterViewInit(): void {
@@ -79,7 +81,7 @@ export class ManagerCreateComponent {
         color: this.parameters.color,
       },
       description: {
-        text: this.parameters.description || '',
+        text: this.parameters.description ?? '',
       },
       checkTimer: 256,
       elements: this.getAllElements(),
@@ -177,7 +179,7 @@ export class ManagerCreateComponent {
           : this.DEFAULT_SUCCESS_WHEN_FN(response);
 
       if (!success) {
-        throw new Error('Error al crear el elemento');
+        throw new Error('Error al enviar el formulario');
       }
 
       this.snackBar.open(this.parameters.service.success.message, 'X', {
@@ -185,8 +187,12 @@ export class ManagerCreateComponent {
       });
 
       this.close();
+
+      this.success.emit();
     } catch (err) {
       this.setDescription(this.parameters.service.error.message, 'red');
+
+      this.error.emit();
     }
 
     submitButton.params.loading = false;
@@ -206,6 +212,7 @@ export class ManagerCreateComponent {
         await handleFn(form);
       }
 
+      this.cancel.emit();
       this.close();
     };
   }

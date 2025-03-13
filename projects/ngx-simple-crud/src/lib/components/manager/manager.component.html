@@ -16,14 +16,17 @@
 <ngx-simple-crud-manager-create
   *ngIf="createParameters"
   [parameters]="createParameters"
+  (success)="onCreate()"
 ></ngx-simple-crud-manager-create>
 
 <ngx-simple-crud-manager-update
   *ngIf="updateParameters"
   [parameters]="updateParameters"
+  (success)="onUpdate()"
 ></ngx-simple-crud-manager-update>
 
 <ngx-simple-crud-manager-delete
   *ngIf="deleteParameters"
   [parameters]="deleteParameters"
+  (success)="onDelete()"
 ></ngx-simple-crud-manager-delete>

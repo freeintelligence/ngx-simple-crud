@@ -186,7 +186,7 @@ export class ManagerReadComponent {
     }
   }
 
-  public async refreshData() {
+  public async refreshData(forceFetch: boolean = false) {
     const pageIndex = this.paginator.pageIndex;
     const pageSize = this.paginator.pageSize ?? this.DEFAULT_PAGE_SIZE;
     const offset = pageIndex * pageSize;
@@ -204,7 +204,7 @@ export class ManagerReadComponent {
       },
     };
 
-    if (this.parameters.pagination?.remote || !this.lastResult) {
+    if (this.parameters.pagination?.remote || !this.lastResult || forceFetch) {
       this.lastResult = await this.managerReadService.get(
         this.parameters.service,
         data

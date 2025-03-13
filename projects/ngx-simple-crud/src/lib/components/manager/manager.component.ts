@@ -42,4 +42,38 @@ export class ManagerComponent {
   @Input() readParameters!: ManagerReadParameters;
   @Input() updateParameters!: ManagerUpdateParameters;
   @Input() deleteParameters!: ManagerDeleteParameters;
+
+  public onCreate() {
+    this.readComponent.paginator.pageIndex = 0;
+    this.readComponent.refreshData(true);
+  }
+
+  public onUpdate() {
+    this.readComponent.refreshData(true);
+  }
+
+  public onDelete() {
+    const itemsInCurrentPage = this.readComponent.parameters.data || [];
+
+    if (itemsInCurrentPage.length === 0) {
+      this.readComponent.paginator.pageIndex = 0;
+      this.readComponent.refreshData(true);
+
+      return;
+    }
+
+    if (itemsInCurrentPage.length === 1) {
+      this.readComponent.paginator.pageIndex -= 1;
+      this.readComponent.paginator.pageIndex =
+        this.readComponent.paginator.pageIndex < 0
+          ? 0
+          : this.readComponent.paginator.pageIndex;
+
+      this.readComponent.refreshData(true);
+
+      return;
+    }
+
+    this.readComponent.refreshData(true);
+  }
 }

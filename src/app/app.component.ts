@@ -345,7 +345,7 @@ export class AppComponent {
     color: 'primary',
     service: {
       url: ({ form: { json }, item }) => {
-        return `https://jsonplaceholder.typicode.com/posts/eliminar/${
+        return `https://jsonplaceholder.typicode.com/posts/${
           (item as any).name
         }`;
       },

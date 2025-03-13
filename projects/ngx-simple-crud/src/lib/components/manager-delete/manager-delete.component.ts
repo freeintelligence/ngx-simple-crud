@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ManagerDeleteParameters } from './manager-delete.parameters';
-import { ManagerCreateComponent } from '../manager-create/manager-create.component';
 import { HttpResponse } from '@angular/common/http';
-import { deepMerge } from '../../utils';
 import { ManagerUpdateComponent } from '../manager-update/manager-update.component';
 
 @Component({

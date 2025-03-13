@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ManagerUpdateParameters } from './manager-update.parameters';
 import { ManagerCreateComponent } from '../manager-create/manager-create.component';
-import { deepClone, deepMerge } from '../../utils';
+import { deepMerge } from '../../utils';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
